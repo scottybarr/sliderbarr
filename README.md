@@ -29,6 +29,16 @@ var slider = SliderBarr({
 </body>
 ```
 
+## Current features
+* Horizontal slider
+* Single handle
+* Callbacks for dragging and changing
+* Support for Chrome, Firefox, Opera, Safari, Internet Explorer 7, 8, 9
+
+## Future Features
+* Range slider
+* Horizontal / Vertical (If there's enough interest)
+
 ## Building
 
 Requirements:
