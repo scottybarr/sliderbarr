@@ -50,6 +50,7 @@ Requirements:
 
 ```
 npm install coffee-script
+npm install phantom
 ```
 * [Download and install Ruby](http://www.ruby-lang.org/en/)
 * Run the following commands in the command line:
