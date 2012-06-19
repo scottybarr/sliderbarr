@@ -1,6 +1,6 @@
 # SliderBarr
 
-A simple JavaScript slider component.
+A simple and lightweight JavaScript slider component that **does NOT depend on jQuery UI**.
 
 ## Getting Started
 SliderBarr is written in CoffeeScript, styled using SASS and uses qunit for unit tests.
@@ -39,7 +39,7 @@ var slider = SliderBarr({
 
 ## Future Features
 * Range slider
-* Horizontal / Vertical (If there's enough interest)
+* Vertical slider option (If there's enough interest)
 * Support for touchscreen devices.
 
 ## Building
