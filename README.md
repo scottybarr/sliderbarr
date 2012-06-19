@@ -8,6 +8,8 @@ SliderBarr is written in CoffeeScript, styled using SASS and uses qunit for unit
 It is AMD-compatible and has a single dependency on [jQuery](http://jquery.com/).
 
 ## How to use it
+Once you have downloaded and extracted the component you should use the contents of the **dist** directory in the following manner:
+
 In your web page:
 ```html
 
@@ -17,7 +19,7 @@ In your web page:
 <body>
 <div class="slider"></div>
 
-<script src="jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="dist/sliderbarr-0.0.1.min.js"></script>
 <script>
 var slider = SliderBarr({
