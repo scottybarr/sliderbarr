@@ -40,6 +40,7 @@ var slider = SliderBarr({
 ## Future Features
 * Range slider
 * Horizontal / Vertical (If there's enough interest)
+* Support for touchscreen devices.
 
 ## Building
 
