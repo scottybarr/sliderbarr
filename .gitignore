@@ -171,3 +171,4 @@ src/sass/screen.scss
 *.rb
 src/sass/stylesheets
 phantomjs.exe
+*.sublime*
