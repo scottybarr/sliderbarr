@@ -1,0 +1,36 @@
+@import "compass/css3/border-radius";
+
+$slider-background 	: #AFAFAF;
+$bar-background 	: #5BE2ED;
+$handle-background	: #646464;
+$border-radius		: 5px;
+$slider-height		: 6px;
+
+.slider {
+	width: 200px;
+	height: $slider-height;
+	background-color: $slider-background;
+	@include border-radius($border-radius);
+	position: relative;
+	cursor: pointer;
+
+	.bar {
+		width: 50%;
+		@include border-top-left-radius($border-radius);
+		@include border-bottom-left-radius($border-radius);
+		height: $slider-height;
+		position: absolute;
+		background-color: $bar-background;
+	}
+
+	.handle {
+		height: 14px;
+		margin-top: -4px;
+		margin-left: -5px;
+		width: 10px;
+		position: absolute;
+		left: 75%;
+		background-color: $handle-background;
+		@include border-radius(3px);
+	}
+}

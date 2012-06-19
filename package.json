@@ -1,0 +1,29 @@
+{
+  "name": "sliderbarr",
+  "title": "SliderBarr",
+  "description": "A simple JavaScript slider component.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/scottybarr/sliderbarr",
+  "author": {
+    "name": "Scott Barr",
+    "email": "scottbarr@gmail.com",
+    "url": "http://www.scottbarr.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scottybarr/sliderbarr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/scottybarr/sliderbarr/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/scottybarr/sliderbarr/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "1.7.2"
+  },
+  "keywords": []
+}
