@@ -23,7 +23,7 @@ In your web page:
 var slider = SliderBarr({
     el: $('.slider'),
     value: 50,
-    step: 1,
+    step: 1
 });
 </script>
 </body>
