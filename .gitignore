@@ -170,3 +170,4 @@ src/sass/print.scss
 src/sass/screen.scss
 *.rb
 src/sass/stylesheets
+phantomjs.exe

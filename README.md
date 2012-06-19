@@ -63,6 +63,7 @@ gem install compass
 ```
 compass create src --bare --syntax sass --sass-dir "sass" --css-dir "../dist/css"
 ```
+* [Download PhantomJS and extract it to the SliderBarr directory](http://phantomjs.org/)
 * Edit src/coffee/sliderbarr-0.0.1.coffee or src/sass/sliderbarr.scss
 * After changes open the command line and run:
 
