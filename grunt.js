@@ -122,7 +122,7 @@ module.exports = function(grunt) {
     grunt.registerHelper('compile_sass', function(fromdir, dest, done) {
         var args = {
           cmd: 'compass',
-          args: ['compile']
+          args: ['compile src']
         };
         grunt.helper('exec', args, function(err, stdout, code){
           handleResult(fromdir, dest, err, stdout, code, done);
@@ -146,5 +146,8 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', 'coffee compass qunit min');
+
+
+
 
 };

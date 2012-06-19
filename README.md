@@ -48,9 +48,7 @@ gem install compass
 * Change to this directory and run the following commands in the command line:
 
 ```
-cd src
-compass install compass
-compass create src --css-dir=../dist/css
+compass create src --bare --syntax sass --sass-dir "sass" --css-dir "../dist/css"
 ```
 * Edit src/coffee/sliderbarr-0.0.1.coffee or src/sass/sliderbarr.scss
 * After changes open the command line and run:
