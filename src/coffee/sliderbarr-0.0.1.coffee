@@ -1,5 +1,6 @@
 class SliderBarr
     'use strict'
+	
     constructor: (userSettings)->
         @_settings = 
             el       : null
