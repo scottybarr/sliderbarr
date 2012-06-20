@@ -53,7 +53,7 @@ class SliderBarr
         @_settings.value = @_settings.value + (if dir is 'r' then @_settings.step else -@_settings.step)
         @_validateHandles()
         @_renderHandleChanges()
-        @_settings.onChange(@_settings.value) if @_settings.onChange isnt null
+        @_fireOnChange()
 
     _renderHandleChanges: ->
         @_cache['handle'].css('left', @_settings.value + '%')
@@ -74,15 +74,18 @@ class SliderBarr
         @_settings.value = @_getValFromMouseEvent(e)
         @_validateHandles()
         @_renderHandleChanges()
-        @_settings.onChange(@_settings.value) if @_settings.onChange isnt null
+        @_fireOnChange()
         @_cache['handle'].focus()
 
     _onMouseup: (e)=>
         if @_activeDrag
             @_setSliderValueOnDrag(e)
-            @_settings.onChange(@_settings.value) if @_settings.onChange isnt null
+            @_fireOnChange()
             @_cache['handle'].focus()
         @_activeDrag = false
+
+    _fireOnChange:->
+        @_settings.onChange(@_settings.value) if @_settings.onChange isnt null
 
     _getValFromMouseEvent: (e)->
         parseInt(((e.pageX - @_sliderAttr.leftOffset) / @_sliderAttr.width) * 100, 10)
