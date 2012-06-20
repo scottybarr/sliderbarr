@@ -20,13 +20,13 @@ In your web page:
     <link charset='utf-8' href='dist/css/sliderbarr.css' rel='stylesheet' type='text/css' />
 </head>
 <body>
-<div class="slider"></div>
+<div id="slider" class="slider"></div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="dist/sliderbarr-0.0.1.min.js"></script>
 <script>
 var slider = SliderBarr({
-    el: $('.slider'),
+    el: $('#slider'),
     value: 50,
     step: 1
 });
