@@ -19,8 +19,8 @@ module.exports = function(grunt) {
     },
     compass: {
         dist: {
-            dir: 'src/sass/<%= pkg.name %>.scss',
-            dest: 'dist/css/<%= pkg.name %>.css',
+            dir: 'src/sass',
+            dest: 'dist/css',
             outputstyle: 'compressed',
             linecomments: false
         }
@@ -119,10 +119,10 @@ module.exports = function(grunt) {
 
     });
     
-    grunt.registerHelper('compile_sass', function(fromdir, dest, done) {
+    grunt.registerHelper('compile_sass', function(fromdir, dest, outputstyle, done) {
         var args = {
           cmd: 'compass',
-          args: ['compile src']
+          args: ['compile src --no-line-comments', '--output-style', outputstyle]
         };
         grunt.helper('exec', args, function(err, stdout, code){
           handleResult(fromdir, dest, err, stdout, code, done);
@@ -133,13 +133,14 @@ module.exports = function(grunt) {
         var done = this.async();
         var dir = this.data.dir;
         var dest = this.data.dest;
+        var outputstyle = this.data.outputstyle;
         
         if (dir) {
             if (!dest) {
                 dest = dir;
             }
             
-            grunt.helper('compile_sass', dir, dest, done);
+            grunt.helper('compile_sass', dir, dest, outputstyle, done);
             return;
         }
     });
