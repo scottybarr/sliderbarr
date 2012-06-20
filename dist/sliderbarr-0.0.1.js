@@ -101,7 +101,7 @@
 
     SliderBarr.prototype._onHandleMousedown = function(e) {
       this._activeDrag = true;
-      $(document).on('mousemove', this._onHandleMousemove);
+      this._cache['document'].on('mousemove', this._onHandleMousemove);
       return e.preventDefault();
     };
 

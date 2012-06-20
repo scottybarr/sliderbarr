@@ -64,7 +64,7 @@ class SliderBarr
 
     _onHandleMousedown: (e)=>
         @_activeDrag = true
-        $(document).on('mousemove', @_onHandleMousemove)
+        @_cache['document'].on('mousemove', @_onHandleMousemove)
         e.preventDefault()
 
     _onHandleMousemove: (e)=>
