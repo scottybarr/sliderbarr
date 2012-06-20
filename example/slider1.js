@@ -1,13 +1,21 @@
 (function() {
-  var onChange, onDrag, slider, sliderTwo,
+  var onChange, onDrag, slider, sliderTwo, onDragTwo, onChangeTwo,
     _this = this;
 
   onChange = function(val) {
-    return console.log('onChange', val);
+    $('.sliderVal').text(val + '%');
   };
 
   onDrag = function(val) {
-    return console.log('onDrag', val);
+    $('.sliderVal').text(val + '%');
+  };
+
+  onChangeTwo = function(val) {
+    $('.sliderValTwo').text(val + '%');
+  };
+
+  onDragTwo = function(val) {
+    $('.sliderValTwo').text(val + '%');
   };
 
   slider = new SliderBarr({
@@ -22,8 +30,8 @@
     el: $('#sliderTwo'),
     value: 50,
     step: 10,
-    onChange: onChange,
-    onDrag: onDrag
+    onChange: onChangeTwo,
+    onDrag: onDragTwo
   });
 
 }).call(this);
