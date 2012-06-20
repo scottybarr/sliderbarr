@@ -80,9 +80,7 @@
       this._settings.value = this._settings.value + (dir === 'r' ? this._settings.step : -this._settings.step);
       this._validateHandles();
       this._renderHandleChanges();
-      if (this._settings.onChange !== null) {
-        return this._settings.onChange(this._settings.value);
-      }
+      return this._fireOnChange();
     };
 
     SliderBarr.prototype._renderHandleChanges = function() {
@@ -117,21 +115,23 @@
       this._settings.value = this._getValFromMouseEvent(e);
       this._validateHandles();
       this._renderHandleChanges();
-      if (this._settings.onChange !== null) {
-        this._settings.onChange(this._settings.value);
-      }
+      this._fireOnChange();
       return this._cache['handle'].focus();
     };
 
     SliderBarr.prototype._onMouseup = function(e) {
       if (this._activeDrag) {
         this._setSliderValueOnDrag(e);
-        if (this._settings.onChange !== null) {
-          this._settings.onChange(this._settings.value);
-        }
+        this._fireOnChange();
         this._cache['handle'].focus();
       }
       return this._activeDrag = false;
+    };
+
+    SliderBarr.prototype._fireOnChange = function() {
+      if (this._settings.onChange !== null) {
+        return this._settings.onChange(this._settings.value);
+      }
     };
 
     SliderBarr.prototype._getValFromMouseEvent = function(e) {
