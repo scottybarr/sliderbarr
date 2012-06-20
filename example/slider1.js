@@ -1,5 +1,5 @@
 (function() {
-  var onChange, onDrag, slider,
+  var onChange, onDrag, slider, sliderTwo,
     _this = this;
 
   onChange = function(val) {
@@ -11,9 +11,17 @@
   };
 
   slider = new SliderBarr({
-    el: $('.slider'),
+    el: $('#slider'),
     value: 50,
     step: 1,
+    onChange: onChange,
+    onDrag: onDrag
+  });
+
+  sliderTwo = new SliderBarr({
+    el: $('#sliderTwo'),
+    value: 50,
+    step: 10,
     onChange: onChange,
     onDrag: onDrag
   });
