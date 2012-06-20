@@ -22,8 +22,6 @@
       "url": "https://github.com/scottybarr/sliderbarr/blob/master/LICENSE-MIT"
     }
   ],
-  "dependencies": {
-    "jquery": "1.7.2"
-  },
+  "dependencies": {},
   "keywords": []
 }
