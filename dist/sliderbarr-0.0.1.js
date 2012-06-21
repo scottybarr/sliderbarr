@@ -126,7 +126,8 @@
         this._fireOnChange();
         this._cache['handle'].focus();
       }
-      return this._activeDrag = false;
+      this._activeDrag = false;
+      return false;
     };
 
     SliderBarr.prototype._fireOnChange = function() {
