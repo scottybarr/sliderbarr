@@ -102,7 +102,7 @@
     SliderBarr.prototype._onHandleMousedown = function(e) {
       this._activeDrag = true;
       this._cache['document'].on('mousemove', this._onHandleMousemove);
-      return e.preventDefault();
+      return false;
     };
 
     SliderBarr.prototype._onHandleMousemove = function(e) {
@@ -116,7 +116,8 @@
       this._validateHandles();
       this._renderHandleChanges();
       this._fireOnChange();
-      return this._cache['handle'].focus();
+      this._cache['handle'].focus();
+      return false;
     };
 
     SliderBarr.prototype._onMouseup = function(e) {
