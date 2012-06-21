@@ -65,7 +65,7 @@ class SliderBarr
     _onHandleMousedown: (e)=>
         @_activeDrag = true
         @_cache['document'].on('mousemove', @_onHandleMousemove)
-        e.preventDefault()
+        false
 
     _onHandleMousemove: (e)=>
         @_setSliderValueOnDrag(e) if @_activeDrag
@@ -76,6 +76,7 @@ class SliderBarr
         @_renderHandleChanges()
         @_fireOnChange()
         @_cache['handle'].focus()
+        false
 
     _onMouseup: (e)=>
         if @_activeDrag
