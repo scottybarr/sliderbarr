@@ -25,7 +25,7 @@ In your web page:
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="dist/sliderbarr-0.0.1.min.js"></script>
 <script>
-var slider = SliderBarr({
+var slider = new SliderBarr({
     el: $('#slider'),
     value: 50,
     step: 1
