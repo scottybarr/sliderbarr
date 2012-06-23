@@ -8,18 +8,20 @@ class SliderBarr
             min      : 0
             value    : 25
             bar      : true
+            labels   : false
             step     : 1
             onChange : null
             onDrag   : null
 
-        @_activeDrag    = false
-        @_sliderAttr    = {}
-        @_cache         = []
+        @_activeDrag = false
+        @_sliderAttr = {}
+        @_cache      = []
 
         $.extend(@_settings, userSettings)
 
         @_validateHandles()
         @_render()
+        @_renderEdgeLabels() if @_settings.labels
         @_initSelectors()
         @_initEvents()
         @_renderHandleChanges()
@@ -30,17 +32,28 @@ class SliderBarr
         @_settings.value = @_settings.min if @_settings.value < @_settings.min
 
     _render:->
-        @_settings.el.append('<span class="bar"></span>') if @_settings.bar
+        @_settings.el.append('
+            <span class="label min"></span>
+            <span class="label current"></span>
+            <span class="label max"></span>'
+        ) if @_settings.labels
+        @_settings.el.append('<div class="bar"></div>') if @_settings.bar
         @_settings.el.append('<a href="#" class="handle"></a>')
+
+    _renderEdgeLabels: ->
+        @_settings.el
+            .find('.min').text(@_settings.min).end()
+            .find('.max').text(@_settings.max)
 
     _initSelectors:->
         @_cache['document'] = $(document)
         @_cache['slider']   = @_settings.el
         @_cache['bar']      = @_settings.el.find('.bar') if @_settings.bar
         @_cache['handle']   = @_settings.el.find('.handle')
+        @_cache['current']  = @_settings.el.find('.current') if @_settings.labels
 
         @_sliderAttr =
-            'width'      : @_cache['slider'].outerWidth()
+            'width' : @_cache['slider'].outerWidth()
 
     _initEvents:->
         @_cache['handle'].on('keydown', @_onHandleKeydown)
@@ -57,6 +70,7 @@ class SliderBarr
     _renderHandleChanges: ->
         @_cache['handle'].css('left', @_settings.value + '%')
         @_cache['bar'].css('width' : @_settings.value + '%') if @_settings.bar
+        @_cache['current'].text(@_settings.value) if @_settings.labels
 
     _onHandleKeydown: (e)=>
         @_changeHandle(if e.keyCode in [37, 40, 65, 83] then 'l' else 'r') if e.keyCode in [37, 38, 39, 40, 65, 68, 83, 87]

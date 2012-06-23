@@ -22,6 +22,7 @@
         min: 0,
         value: 25,
         bar: true,
+        labels: false,
         step: 1,
         onChange: null,
         onDrag: null
@@ -32,6 +33,9 @@
       $.extend(this._settings, userSettings);
       this._validateHandles();
       this._render();
+      if (this._settings.labels) {
+        this._renderEdgeLabels();
+      }
       this._initSelectors();
       this._initEvents();
       this._renderHandleChanges();
@@ -50,10 +54,20 @@
     };
 
     SliderBarr.prototype._render = function() {
+      if (this._settings.labels) {
+        this._settings.el.append('\
+            <span class="label min"></span>\
+            <span class="label current"></span>\
+            <span class="label max"></span>');
+      }
       if (this._settings.bar) {
-        this._settings.el.append('<span class="bar"></span>');
+        this._settings.el.append('<div class="bar"></div>');
       }
       return this._settings.el.append('<a href="#" class="handle"></a>');
+    };
+
+    SliderBarr.prototype._renderEdgeLabels = function() {
+      return this._settings.el.find('.min').text(this._settings.min).end().find('.max').text(this._settings.max);
     };
 
     SliderBarr.prototype._initSelectors = function() {
@@ -63,6 +77,9 @@
         this._cache['bar'] = this._settings.el.find('.bar');
       }
       this._cache['handle'] = this._settings.el.find('.handle');
+      if (this._settings.labels) {
+        this._cache['current'] = this._settings.el.find('.current');
+      }
       return this._sliderAttr = {
         'width': this._cache['slider'].outerWidth()
       };
@@ -85,9 +102,12 @@
     SliderBarr.prototype._renderHandleChanges = function() {
       this._cache['handle'].css('left', this._settings.value + '%');
       if (this._settings.bar) {
-        return this._cache['bar'].css({
+        this._cache['bar'].css({
           'width': this._settings.value + '%'
         });
+      }
+      if (this._settings.labels) {
+        return this._cache['current'].text(this._settings.value);
       }
     };
 
