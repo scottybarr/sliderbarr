@@ -41,7 +41,6 @@ class SliderBarr
 
         @_sliderAttr =
             'width'      : @_cache['slider'].outerWidth()
-            'leftOffset' : @_cache['slider'].offset().left
 
     _initEvents:->
         @_cache['handle'].on('keydown', @_onHandleKeydown)
@@ -90,7 +89,7 @@ class SliderBarr
         @_settings.onChange(@_settings.value) if @_settings.onChange isnt null
 
     _getValFromMouseEvent: (e)->
-        parseInt(((e.pageX - @_sliderAttr.leftOffset) / @_sliderAttr.width) * 100, 10)
+        parseInt(((e.pageX - @_cache['slider'].offset().left) / @_sliderAttr.width) * 100, 10)
 
     _setSliderValueOnDrag: (e)->
         @_settings.value = @_getValFromMouseEvent(e)

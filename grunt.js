@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         dist: {
             dir: 'src/sass',
             dest: 'dist/css',
-            outputstyle: 'compressed',
+            outputstyle : '',
             linecomments: false
         }
     },
@@ -122,7 +122,7 @@ module.exports = function(grunt) {
     grunt.registerHelper('compile_sass', function(fromdir, dest, outputstyle, done) {
         var args = {
           cmd: 'compass',
-          args: ['compile src --no-line-comments', '--output-style', outputstyle]
+          args: ['compile src --no-line-comments']
         };
         grunt.helper('exec', args, function(err, stdout, code){
           handleResult(fromdir, dest, err, stdout, code, done);

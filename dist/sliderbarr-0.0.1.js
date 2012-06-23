@@ -64,8 +64,7 @@
       }
       this._cache['handle'] = this._settings.el.find('.handle');
       return this._sliderAttr = {
-        'width': this._cache['slider'].outerWidth(),
-        'leftOffset': this._cache['slider'].offset().left
+        'width': this._cache['slider'].outerWidth()
       };
     };
 
@@ -137,7 +136,7 @@
     };
 
     SliderBarr.prototype._getValFromMouseEvent = function(e) {
-      return parseInt(((e.pageX - this._sliderAttr.leftOffset) / this._sliderAttr.width) * 100, 10);
+      return parseInt(((e.pageX - this._cache['slider'].offset().left) / this._sliderAttr.width) * 100, 10);
     };
 
     SliderBarr.prototype._setSliderValueOnDrag = function(e) {
