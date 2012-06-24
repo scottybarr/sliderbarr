@@ -38,6 +38,7 @@
         strictEqual(slider._settings.min, 0);
         strictEqual(slider._settings.value, 50);
         strictEqual(slider._settings.bar, true);
+        strictEqual(slider._settings.labels, false);
         strictEqual(slider._settings.step, 1);
         strictEqual(slider._settings.onChange, null);
         strictEqual(slider._settings.onDrag, null);
