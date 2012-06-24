@@ -1,4 +1,4 @@
-#################
+]#################
 ## PyCharm
 #################
 
@@ -174,8 +174,9 @@ src/sass/sass
 src/sass/ie.scss
 src/sass/print.scss
 src/sass/screen.scss
+src/stylesheets
 *.rb
 src/sass/stylesheets
-phantomjs.exe
+phantomjs*
 *.sublime*
 node_modules
