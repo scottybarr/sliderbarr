@@ -1,36 +1,73 @@
-@import "compass/css3/border-radius";
+@import "compass";
 
-$slider-background  : #AFAFAF;
-$bar-background     : #58B8C7;
-$handle-background  : #646464;
-$border-radius      : 5px;
-$slider-height      : 6px;
+$width                   : 300px;
+$bar-background          : #2585FF;
+$slider-background       : #EAEAEA;
+$handle-background       : #E7E7E7;
+$handle-inner-background : #F1EFF0;
+$handle-border           : #F1EFF0;
 
 .sliderbarr {
-    width: 200px;
-    height: $slider-height;
+    @include border-radius(5px);
+    @include box-shadow(inset 0px 1px 2px 1px #D1D1D1);
+    width: $width;
+    height: 10px;
     background-color: $slider-background;
-    @include border-radius($border-radius);
     position: relative;
     cursor: pointer;
 
     .bar {
-        width: 50%;
-        @include border-top-left-radius($border-radius);
-        @include border-bottom-left-radius($border-radius);
-        height: $slider-height;
+        @include border-radius(1px);
+        display: block;
+        height: 2px;
+        top: 4px;
+        left: 5px;
         position: absolute;
         background-color: $bar-background;
     }
 
     .handle {
-        height: 14px;
-        margin-top: -4px;
-        margin-left: -5px;
-        width: 10px;
+        @include border-radius(50%);
+        @include box-shadow(0px 0px 1px 1px #D1D1D1);
+        height: 20px;
+        width: 20px;
+        border: solid 2px $handle-border;
+        margin-top: -7px;
+        margin-left: -12px;
         position: absolute;
-        left: 75%;
-        background-color: $handle-background;
-        @include border-radius(3px);
+        background-color: $handle-background ;
+
+        &:before {
+            @include border-radius(50%);
+            @include box-shadow(inset 2px 0px 10px 1px #DFDFDF);
+            content: "";
+            display: block;
+            height: 22px;
+            width: 22px;
+            position: relative;
+            top: -1px;
+            left: -1px;
+            background-color: $handle-inner-background;
+        }
+    }
+
+    .label {
+        position: absolute;
+        top: -20px;
+        font-size: 10px;
+
+        &.min {
+            left: 0;
+        }
+
+        &.max {
+            right: 0;
+        }
+
+        &.current {
+            width: $width;
+            text-align: center;
+            display: block;
+        }
     }
 }

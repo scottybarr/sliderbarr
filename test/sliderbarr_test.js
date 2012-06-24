@@ -23,11 +23,11 @@
 
     module('sliderbarr', {
         setup: function() {
-                    slider = new SliderBarr({
-            'el'    : $('.slider'),
-            'value' : 50,
-            'step'  : 1
-        });
+            slider = new SliderBarr({
+                'el'    : $('.slider'),
+                'value' : 50,
+                'step'  : 1
+            });
         }
     });
 
