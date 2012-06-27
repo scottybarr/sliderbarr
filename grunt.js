@@ -27,8 +27,8 @@ module.exports = function(grunt) {
     },
     min: {
       dist: {
-        src: ['dist/<%= pkg.name %>-<%= pkg.version %>.js'],
-        dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'
+        src: ['dist/<%= pkg.name %>.js'],
+        dest: 'dist/<%= pkg.name %>.min.js'
       }
     },
     qunit: {
