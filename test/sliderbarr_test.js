@@ -32,7 +32,19 @@
     });
 
     test('constructor settings', function() {
-        // Not a bad test to run on collection methods.
+        var renderStub        = sinon.stub(SliderBarr.prototype, '_render'),
+            renderEdgeStub    = sinon.stub(SliderBarr.prototype, '_renderEdgeLabels'),
+            initSelectorsStub = sinon.stub(SliderBarr.prototype, '_initSelectors'),
+            initEventsStub    = sinon.stub(SliderBarr.prototype, '_initEvents'),
+            renderHandleStub  = sinon.stub(SliderBarr.prototype, '_renderHandleChanges');
+
+
+        var slider = new SliderBarr({
+          'el'    : $('.slider'),
+          'value' : 50,
+          'step'  : 1
+        });
+
         notStrictEqual(slider._settings.el, $('.slider'));
         strictEqual(slider._settings.max, 100);
         strictEqual(slider._settings.min, 0);
@@ -43,6 +55,14 @@
         strictEqual(slider._settings.onChange, null);
         strictEqual(slider._settings.onDrag, null);
         strictEqual(slider._activeDrag, false);
+        deepEqual(slider._cache, []);
+        deepEqual(slider._sliderAttr, {});
+
+        ok(renderStub.called);
+        ok(!renderEdgeStub.called);
+        ok(initSelectorsStub.called);
+        ok(initEventsStub.called);
+        ok(renderHandleStub.called);
     });
 
 }(jQuery));
