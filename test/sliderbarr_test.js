@@ -21,6 +21,12 @@
 
   var slider = null;
 
+  var renderStub        = sinon.stub(SliderBarr.prototype, '_render'),
+      renderEdgeStub    = sinon.stub(SliderBarr.prototype, '_renderEdgeLabels'),
+      initSelectorsStub = sinon.stub(SliderBarr.prototype, '_initSelectors'),
+      initEventsStub    = sinon.stub(SliderBarr.prototype, '_initEvents'),
+      renderHandleStub  = sinon.stub(SliderBarr.prototype, '_renderHandleChanges');
+
   module('sliderbarr', {
     setup: function() {
       slider = new SliderBarr({
@@ -28,16 +34,17 @@
         'value' : 50,
         'step'  : 1
       });
+    },
+    tearDown: function () {
+      renderStub.restore()
+      renderEdgeStub.restore()
+      initSelectorsStub.restore()
+      initEventsStub.restore()
+      renderHandleStub.restore()
     }
   });
 
-  test('constructor settings', function() {
-    var renderStub        = sinon.stub(SliderBarr.prototype, '_render'),
-        renderEdgeStub    = sinon.stub(SliderBarr.prototype, '_renderEdgeLabels'),
-        initSelectorsStub = sinon.stub(SliderBarr.prototype, '_initSelectors'),
-        initEventsStub    = sinon.stub(SliderBarr.prototype, '_initEvents'),
-        renderHandleStub  = sinon.stub(SliderBarr.prototype, '_renderHandleChanges');
-
+  test('can construct', function() {
 
     var slider = new SliderBarr({
       'el'    : $('.slider'),
@@ -63,9 +70,13 @@
     ok(initSelectorsStub.called);
     ok(initEventsStub.called);
     ok(renderHandleStub.called);
+
+
+
+
   });
 
-  test('validate handles', function() {
+  test('can validate handles', function() {
     slider.setValue(68);
 
     strictEqual(slider.getValue(), 68);
@@ -83,23 +94,23 @@
     strictEqual(sliderTwo.getValue(), 0);
   });
 
-  test('render', function() {
+  test('can render', function() {
     expect(0);
   });
 
-  test('render edge labels', function() {
+  test('can render edge labels', function() {
     expect(0);
   });
 
-  test('initialise jquery selectors', function() {
+  test('can initialise jquery selectors', function() {
     expect(0);
   });
 
-  test('initialise events', function() {
+  test('can initialise events', function() {
     expect(0);
   });
 
-  test('change handle', function() {
+  test('can hange handle', function() {
     strictEqual(slider.getValue(), 50);
 
     var dir = 'r';
@@ -154,8 +165,42 @@
     e['keyCode'] = 87;
     slider._onHandleKeydown(e);
     strictEqual(myDir, 'r');
+  });
 
+  test('can handle mousedown', function() {
+    expect(0);
+  });
 
+  test('can handle mouse move', function() {
+    var setSliderValStub = sinon.stub(SliderBarr.prototype, '_setSliderValueOnDrag');
+
+    slider._onHandleMousemove({});
+
+    ok(!setSliderValStub.called);
+
+    slider._activeDrag = true;
+
+    slider._onHandleMousemove({});
+
+    ok(setSliderValStub.called);
+
+  });
+
+  test('can perform on slider click', function() {
+    var getValFromMouseStub = sinon.stub(SliderBarr.prototype, '_getValFromMouseEvent', function(a) {
+      return 10;
+    }),
+        validateHandlesStub = sinon.stub(SliderBarr.prototype, '_validateHandles'),
+        onChangeStub        = sinon.stub(SliderBarr.prototype, '_fireOnChange');
+
+    slider._cache.handle = {
+      'focus' : function() {}
+    };  
+    slider._onSliderClick({});
+    ok (getValFromMouseStub.called);
+    ok (validateHandlesStub.called);
+    ok (renderHandleStub.called);
+    ok (onChangeStub.called);
   });
 
 }(jQuery));
