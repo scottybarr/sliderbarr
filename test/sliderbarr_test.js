@@ -225,4 +225,25 @@
     ok (renderHandleStub.called);
   });
 
+  test('can get value', function() {
+    slider.setValue(75);
+    strictEqual(slider.getValue(), 75);
+
+    slider.setValue(15);
+    strictEqual(slider.getValue(), 15);
+  });
+
+  test('can set value', function() {
+    slider.setValue(64, false);
+    strictEqual(slider.getValue(), 64);
+    ok(validateHandlesStub.called);
+    ok(renderHandleStub.called);
+
+    slider.setValue(14);
+    strictEqual(slider.getValue(), 14);
+    ok(validateHandlesStub.called);
+    ok(renderHandleStub.called);
+    ok(onChangeStub.called);
+  });
+
 }(jQuery));
