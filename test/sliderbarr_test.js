@@ -81,7 +81,7 @@
 
     strictEqual(slider.getValue(), 68);
 
-    sliderTwo = new SliderBarr({
+    var sliderTwo = new SliderBarr({
         'el'    : $('.slider'),
         'value' : 23,
         'step'  : 10
@@ -201,6 +201,20 @@
     ok (validateHandlesStub.called);
     ok (renderHandleStub.called);
     ok (onChangeStub.called);
+  });
+
+  test('can handle mouseup', function() {
+    expect(0);
+  });
+
+  test('can fire on change', function() {
+    var fakeVal = null;
+    var changeFunc = function(val) {
+      fakeVal = val;
+    };
+
+    slider._fireOnChange();
+    strictEqual(fakeVal, null);
   });
 
 }(jQuery));
