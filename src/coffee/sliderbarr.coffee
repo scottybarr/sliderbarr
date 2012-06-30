@@ -111,4 +111,13 @@ class SliderBarr
         @_settings.onDrag(@_settings.value) if @_settings.onDrag isnt null
         @_renderHandleChanges()
 
+    getValue: ->
+        @_settings.value
+
+    setValue: (value, fireEvents = true) ->
+        @_settings.value = value
+        @_validateHandles()
+        @_renderHandleChanges()
+        @_fireOnChange() if fireEvents
+
 if typeof define is "function" && define.amd then define("SliderBarr", [], -> SliderBarr) else window.SliderBarr = SliderBarr
