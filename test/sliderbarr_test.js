@@ -21,11 +21,16 @@
 
   var slider = null;
 
-  var renderStub        = sinon.stub(SliderBarr.prototype, '_render'),
-      renderEdgeStub    = sinon.stub(SliderBarr.prototype, '_renderEdgeLabels'),
-      initSelectorsStub = sinon.stub(SliderBarr.prototype, '_initSelectors'),
-      initEventsStub    = sinon.stub(SliderBarr.prototype, '_initEvents'),
-      renderHandleStub  = sinon.stub(SliderBarr.prototype, '_renderHandleChanges');
+  var renderStub            = sinon.stub(SliderBarr.prototype, '_render'),
+      renderEdgeStub        = sinon.stub(SliderBarr.prototype, '_renderEdgeLabels'),
+      initSelectorsStub     = sinon.stub(SliderBarr.prototype, '_initSelectors'),
+      initEventsStub        = sinon.stub(SliderBarr.prototype, '_initEvents'),
+      renderHandleStub      = sinon.stub(SliderBarr.prototype, '_renderHandleChanges'),
+      validateHandlesStub   = sinon.stub(SliderBarr.prototype, '_validateHandles'),
+      onChangeStub          = sinon.stub(SliderBarr.prototype, '_fireOnChange'),
+      getValFromMouseStub   = sinon.stub(SliderBarr.prototype, '_getValFromMouseEvent', function(a) {
+        return 10;
+      });
 
   module('sliderbarr', {
     setup: function() {
@@ -36,11 +41,12 @@
       });
     },
     tearDown: function () {
-      renderStub.restore()
-      renderEdgeStub.restore()
-      initSelectorsStub.restore()
-      initEventsStub.restore()
-      renderHandleStub.restore()
+      renderStub.restore();
+      renderEdgeStub.restore();
+      initSelectorsStub.restore();
+      initEventsStub.restore();
+      renderHandleStub.restore();
+      validateHandlesStub.restore();
     }
   });
 
@@ -70,13 +76,10 @@
     ok(initSelectorsStub.called);
     ok(initEventsStub.called);
     ok(renderHandleStub.called);
-
-
-
-
   });
 
   test('can validate handles', function() {
+    slider._validateHandles.restore();
     slider.setValue(68);
 
     strictEqual(slider.getValue(), 68);
@@ -187,12 +190,6 @@
   });
 
   test('can perform on slider click', function() {
-    var getValFromMouseStub = sinon.stub(SliderBarr.prototype, '_getValFromMouseEvent', function(a) {
-      return 10;
-    }),
-        validateHandlesStub = sinon.stub(SliderBarr.prototype, '_validateHandles'),
-        onChangeStub        = sinon.stub(SliderBarr.prototype, '_fireOnChange');
-
     slider._cache.handle = {
       'focus' : function() {}
     };  
@@ -215,6 +212,17 @@
 
     slider._fireOnChange();
     strictEqual(fakeVal, null);
+  });
+
+  test('can get value from mouse event', function() {
+    expect(0);
+  });
+
+  test('can set slider value on drag', function() {
+    slider._setSliderValueOnDrag({});
+    ok (getValFromMouseStub.called);
+    ok (validateHandlesStub.called);
+    ok (renderHandleStub.called);
   });
 
 }(jQuery));
