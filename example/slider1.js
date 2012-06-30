@@ -12,7 +12,7 @@
         step  : 10
     });
 
-    var sliderThree = new SliderBarr({
+    new SliderBarr({
         el     : $('#sliderThree'),
         value  : 50,
         step   : 1,
