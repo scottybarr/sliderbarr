@@ -97,7 +97,6 @@ class SliderBarr
             @_fireOnChange()
             @_cache['handle'].focus()
         @_activeDrag = false
-        false
 
     _fireOnChange:->
         @_settings.onChange(@_settings.value) if @_settings.onChange isnt null
