@@ -179,3 +179,4 @@ src/sass/stylesheets
 phantomjs*
 *.sublime*
 node_modules
+dist/css
