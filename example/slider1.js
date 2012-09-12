@@ -19,4 +19,11 @@
         labels : true
     });
 
+    new SliderBarr({
+        el     : $('#sliderFour'),
+        value  : 50,
+        step   : 0.1,
+        labels : true
+    });
+
 }).call(this);

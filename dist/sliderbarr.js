@@ -7,6 +7,8 @@
     'use strict';
 
     function SliderBarr(userSettings) {
+      this._getValFromMouseEvent = __bind(this._getValFromMouseEvent, this);
+
       this._onMouseup = __bind(this._onMouseup, this);
 
       this._onSliderClick = __bind(this._onSliderClick, this);
@@ -45,6 +47,7 @@
       if (this._settings.step !== 1) {
         this._settings.value = Math.round(this._settings.value / this._settings.step) * this._settings.step;
       }
+      this._settings.value = this._validateValue(this._settings.value);
       if (this._settings.value > this._settings.max) {
         this._settings.value = this._settings.max;
       }
@@ -156,7 +159,7 @@
     };
 
     SliderBarr.prototype._getValFromMouseEvent = function(e) {
-      return parseInt(((e.pageX - this._cache['slider'].offset().left) / this._sliderAttr.width) * 100, 10);
+      return this._validateValue(((e.pageX - this._cache['slider'].offset().left) / this._sliderAttr.width) * 100);
     };
 
     SliderBarr.prototype._setSliderValueOnDrag = function(e) {
@@ -166,6 +169,15 @@
         this._settings.onDrag(this._settings.value);
       }
       return this._renderHandleChanges();
+    };
+
+    SliderBarr.prototype._validateValue = function(val) {
+      var int, places, _ref;
+      if (this._settings.step % 1 === 0) {
+        return parseInt(val, 10);
+      }
+      _ref = (this._settings.step + "").split("."), int = _ref[0], places = _ref[1];
+      return parseFloat(val.toFixed(places.length));
     };
 
     SliderBarr.prototype.getValue = function() {

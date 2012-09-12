@@ -28,6 +28,7 @@ class SliderBarr
 
     _validateHandles: ->
         @_settings.value = Math.round(@_settings.value / @_settings.step) * @_settings.step if @_settings.step isnt 1
+        @_settings.value = @_validateValue(@_settings.value)
         @_settings.value = @_settings.max if @_settings.value > @_settings.max
         @_settings.value = @_settings.min if @_settings.value < @_settings.min
 
@@ -102,14 +103,19 @@ class SliderBarr
     _fireOnChange:->
         @_settings.onChange(@_settings.value) if @_settings.onChange isnt null
 
-    _getValFromMouseEvent: (e)->
-        parseInt(((e.pageX - @_cache['slider'].offset().left) / @_sliderAttr.width) * 100, 10)
+    _getValFromMouseEvent: (e)=>
+        @_validateValue(((e.pageX - @_cache['slider'].offset().left) / @_sliderAttr.width) * 100)
 
     _setSliderValueOnDrag: (e)->
         @_settings.value = @_getValFromMouseEvent(e)
         @_validateHandles()
         @_settings.onDrag(@_settings.value) if @_settings.onDrag isnt null
         @_renderHandleChanges()
+
+    _validateValue: (val) ->
+        return parseInt(val, 10) if @_settings.step % 1 is 0
+        [int, places] = (@_settings.step + "").split(".")
+        parseFloat(val.toFixed(places.length));
 
     getValue: ->
         @_settings.value
