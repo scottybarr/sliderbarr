@@ -61,7 +61,6 @@ gem install compass
 ```
 npm install grunt 
 npm install coffee-script 
-npm install grunt-compass
 ```
 
 * [Download PhantomJS and extract it to the SliderBarr directory](http://phantomjs.org/)

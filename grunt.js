@@ -32,8 +32,6 @@ module.exports = function(grunt) {
     uglify: {}
     });
 
-  grunt.loadNpmTasks('grunt-compass');
-
   var exec = function(cmd, done) {
     require('child_process').exec(cmd, function (error, stdout, stderr) {
       if (stderr) {
