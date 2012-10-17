@@ -49,12 +49,6 @@ var slider = new SliderBarr({
 
 Requirements:
 * [Download and install Node](http://nodejs.org)
-* Run the following commands in the command line:
-
-```
-npm install grunt
-npm install coffee-script
-```
 * [Download and install Ruby](http://www.ruby-lang.org/en/)
 * Run the following commands in the command line:
 
@@ -62,16 +56,21 @@ npm install coffee-script
 gem install compass
 ```
 * Download the component and extract it to a suitable directory.
-* Change to this directory and run the following commands in the command line:
-
+* Install the required npm packages for grunt build.
 ```
-compass create src --bare --syntax sass --sass-dir "sass" --css-dir "../dist/css"
+npm install grunt
+npm install coffee-script
+npm install grunt-compass
 ```
 * [Download PhantomJS and extract it to the SliderBarr directory](http://phantomjs.org/)
 * After changes open the command line and run:
 
 ```
 grunt
+```
+* If you wish to automatically compile coffeescript, minify the js and compile sass stylesheets run:
+```
+grunt watch
 ```
 
 ## License
