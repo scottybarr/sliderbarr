@@ -3,7 +3,7 @@
 A simple and lightweight JavaScript slider component that **does NOT depend on jQuery UI**.
 
 ## Example
-[View the example here](http://scottbarr.com/slider/example/)
+[View the example here](http://scottybarr.github.com/sliderbarr)
 
 ## Getting Started
 SliderBarr is written in CoffeeScript, styled using SASS and uses qunit for unit tests.
