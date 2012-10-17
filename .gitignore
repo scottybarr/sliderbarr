@@ -174,7 +174,6 @@ src/sass/ie.scss
 src/sass/print.scss
 src/sass/screen.scss
 src/stylesheets
-*.rb
 src/sass/stylesheets
 phantomjs*
 *.sublime*

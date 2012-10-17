@@ -8,14 +8,7 @@ module.exports = function(grunt) {
       dest: 'dist'
     },
     compass: {
-      src: 'src/sass',
-      dest: 'dist/css',
-      outputstyle: 'compressed',
-      linecomments: false,
-      forcecompile: true,
-      debugsass: false,
-      images: 'images',
-      relativeassets: true
+      src: 'src'
     },
     min: {
       dist: {
@@ -57,8 +50,16 @@ module.exports = function(grunt) {
       exec('coffee -o ' + dest + ' -c ' + src, done);
   };
 
+  var compass = function(src, done) {
+      exec('compass compile ' + src, done);
+  };
+
   grunt.registerTask('coffee', 'Compile CoffeeScript files', function () {
     coffee(grunt.config.get(this.name).src, grunt.config.get(this.name).dest, this.async());
+  });
+
+  grunt.registerTask('compass', 'Compile Compass', function() {
+    compass(grunt.config.get(this.name).src, this.async());
   });
 
   // Default task.
