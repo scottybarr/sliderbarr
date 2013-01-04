@@ -69,6 +69,6 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'coffee compass qunit min');
+  grunt.registerTask('default', 'coffee compass jasmine min');
 
 };
