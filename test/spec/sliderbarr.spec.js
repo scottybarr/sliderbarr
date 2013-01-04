@@ -11,6 +11,10 @@
             });
         });
 
+        afterEach(function() {
+            $('#slider-two').empty();
+        });
+
         it ('can construct', function() {
             var fakeValidateHandles = spyOn(SliderBarr.prototype, '_validateHandles').andCallFake(function() {});
             var fakeRender = spyOn(SliderBarr.prototype, '_render').andCallFake(function() {});
@@ -43,11 +47,28 @@
         describe('Rendering', function() {
 
             it ('can render', function() {
+                // Ensure there is no slider intialised first
+                expect($('#slider-two').find('div').length).toBe(0);
 
+                // Initialise slider
+                var slide = new SliderBarr({el: $('#slider-two')});
+
+                // Ensure the slider has new DOM elements
+                expect($('#slider-two').find('div').length).not.toBe(0);
             });
 
             it ('can render edge labels', function() {
+                // Ensure there is no slider intialised first
+                var el = $('#slider-two');
+                expect(el.find('div').length).toBe(0);
+                expect(el.find('.label').length).toBe(0);
 
+                // Initialise slider
+                var slide = new SliderBarr({el: el, labels: true});
+
+                // Ensure the slider has new DOM elements
+                expect(el.find('div').length).not.toBe(0);
+                expect(el.find('.label').length).not.toBe(0);
             });
 
         });
