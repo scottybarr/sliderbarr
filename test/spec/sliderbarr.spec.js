@@ -35,6 +35,10 @@
             expect(slide._settings.onChange).toBeNull();
             expect(slide._settings.onDrag).toBeNull();
 
+            expect(slide._activeDrag).toBeFalsy();
+            expect(slide._sliderAttr).toEqual({});
+            expect(slide._cache).toEqual([]);
+
             expect(fakeValidateHandles).toHaveBeenCalled();
             expect(fakeRender).toHaveBeenCalled();
             expect(fakeRenderLabels).not.toHaveBeenCalled();
