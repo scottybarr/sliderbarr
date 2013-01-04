@@ -19,7 +19,7 @@ module.exports = function(grunt) {
     jasmine : {
       src : 'dist/sliderbarr.js',
       specs : 'test/spec/*.spec.js',
-      helpers : '',
+      helpers : ['test/lib/jquery-1.8.3.min.js'],
       timeout : 10000,
       phantomjs : {
         'ignore-ssl-errors' : true
