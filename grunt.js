@@ -16,8 +16,14 @@ module.exports = function(grunt) {
         dest: 'dist/sliderbarr.min.js'
       }
     },
-    qunit: {
-      files: ['test/**/*.html']
+    jasmine : {
+      src : 'dist/sliderbarr.js',
+      specs : 'test/spec/*.spec.js',
+      helpers : '',
+      timeout : 10000,
+      phantomjs : {
+        'ignore-ssl-errors' : true
+      }
     },
     watch: {
       coffee: {
@@ -31,6 +37,8 @@ module.exports = function(grunt) {
     },
     uglify: {}
     });
+
+  grunt.loadNpmTasks('grunt-jasmine-runner');
 
   var exec = function(cmd, done) {
     require('child_process').exec(cmd, function (error, stdout, stderr) {
