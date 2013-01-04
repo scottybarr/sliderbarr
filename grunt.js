@@ -17,13 +17,7 @@ module.exports = function(grunt) {
       }
     },
     jasmine : {
-      src : 'dist/sliderbarr.js',
-      specs : 'test/spec/*.spec.js',
-      helpers : ['test/lib/jquery-1.8.3.min.js'],
-      timeout : 10000,
-      phantomjs : {
-        'ignore-ssl-errors' : true
-      }
+      all: ['test/SpecRunner.html']
     },
     watch: {
       coffee: {
@@ -38,9 +32,10 @@ module.exports = function(grunt) {
     uglify: {}
     });
 
-  grunt.loadNpmTasks('grunt-jasmine-runner');
+    grunt.loadNpmTasks('grunt-jasmine-task');
 
-  var exec = function(cmd, done) {
+
+    var exec = function(cmd, done) {
     require('child_process').exec(cmd, function (error, stdout, stderr) {
       if (stderr) {
         console.log(stderr);

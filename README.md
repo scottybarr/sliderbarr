@@ -79,7 +79,7 @@ grunt watch
 * If you wish to run the unit tests you will need to install grunt-jasmine-runner
 
 ```
-npm install grunt-jasmine-runner
+npm install grunt-jasmine-task
 ```
 
 * To run the tests use:
