@@ -76,6 +76,17 @@ grunt
 grunt watch
 ```
 
+* If you wish to run the unit tests you will need to install grunt-jasmine-runner
+
+```
+npm install grunt-jasmine-runner
+```
+
+* To run the tests use:
+```
+grunt jasmine
+```
+
 ## License
 Copyright (c) 2012 Scott Barr  
 Licensed under the MIT license.
