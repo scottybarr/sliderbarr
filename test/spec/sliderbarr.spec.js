@@ -144,11 +144,29 @@
             });
 
             it ('can validate handles', function() {
+                var val = 9e9;
+                slider._settings.value = val;
+                slider._validateHandles();
+                expect(slider._settings.value).toBe(slider._settings.max);
 
+                val = -9e9;
+                slider._settings.value = val;
+                slider._validateHandles();
+                expect(slider._settings.value).toBe(slider._settings.min);
+
+                val = 27;
+                slider._settings.value = val;
+                slider._validateHandles();
+                expect(slider._settings.value).toBe(val);
             });
 
             it ('can get value from mouse event', function() {
+                var e = {
+                    pageX: 500
+                };
 
+                slider._sliderAttr.width = 100;
+                expect(slider._getValFromMouseEvent(e)).toBe(500);
             });
 
             it ('can set slider value on drag', function() {
