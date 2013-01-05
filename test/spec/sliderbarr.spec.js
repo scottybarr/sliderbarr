@@ -155,11 +155,15 @@
                 var testValue = 56;
                 var fakeGetValFromMouseEvent = createFakeGetValFromMouseEvent();
                 var fakeValidateHandles = createFakeValidateHandles();
+                var seenDrag = false;
+
+                slider._settings.onDrag = function() { seenDrag = true; };
 
                 slider._setSliderValueOnDrag({});
                 expect(slider._settings.value).toBe(testValue);
                 expect(fakeValidateHandles).toHaveBeenCalled();
                 expect(fakeGetValFromMouseEvent).toHaveBeenCalled();
+                expect(seenDrag).toBeTruthy();
             });
 
             it ('can get value', function() {
