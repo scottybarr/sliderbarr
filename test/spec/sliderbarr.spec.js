@@ -129,6 +129,19 @@
 
         describe('Set and Get Values', function() {
 
+            it ('can validate value', function() {
+                var testValue = 50;
+                expect(slider._validateValue(testValue)).toBe(50);
+                testValue = 50.33333;
+                expect(slider._validateValue(testValue)).toBe(50);
+
+                slider._settings.step = 0.25;
+                testValue = 23.75;
+                expect(slider._validateValue(testValue)).toBe(23.75);
+                testValue = 23.7786534;
+                expect(slider._validateValue(testValue)).toBe(23.78);
+            });
+
             it ('can validate handles', function() {
 
             });
@@ -147,11 +160,35 @@
             });
 
             it ('can set value', function() {
+                var testValue = 27;
+                var fireEvents = false;
 
+                var fakeValidateHandles = spyOn(slider, '_validateHandles').andCallFake(function() {});
+                var fakeRenderHandles = spyOn(slider, '_renderHandleChanges').andCallFake(function() {});
+                var fakeFireOnChange = spyOn(slider, '_fireOnChange').andCallFake(function() {});
+
+                slider.setValue(testValue, fireEvents);
+                expect(slider._settings.value).toBe(testValue);
+
+                expect(fakeValidateHandles).toHaveBeenCalled();
+                expect(fakeRenderHandles).toHaveBeenCalled();
+                expect(fakeFireOnChange).not.toHaveBeenCalled();
             });
 
             it ('can set value but not fire events', function() {
+                var testValue = 29;
+                var fireEvents = true;
 
+                var fakeValidateHandles = spyOn(slider, '_validateHandles').andCallFake(function() {});
+                var fakeRenderHandles = spyOn(slider, '_renderHandleChanges').andCallFake(function() {});
+                var fakeFireOnChange = spyOn(slider, '_fireOnChange').andCallFake(function() {});
+
+                slider.setValue(testValue, fireEvents);
+                expect(slider._settings.value).toBe(testValue);
+
+                expect(fakeValidateHandles).toHaveBeenCalled();
+                expect(fakeRenderHandles).toHaveBeenCalled();
+                expect(fakeFireOnChange).toHaveBeenCalled();
             });
 
         });
