@@ -80,7 +80,13 @@
         describe('Selectors', function() {
 
             it ('can initialise jquery selectors', function() {
-
+                $el = $('#slider-two');
+                var slide = new SliderBarr({el: $el, labels: true});
+                expect($(document)).toEqual(slide._cache.document);
+                expect($el).toEqual(slide._cache.slider);
+                expect($el.find('.bar')).toEqual(slide._cache.bar);
+                expect($el.find('.handle')).toEqual(slide._cache.handle);
+                expect($el.find('.current')).toEqual(slide._cache.current);
             });
 
         });
@@ -136,10 +142,15 @@
             });
 
             it ('can get value', function() {
-
+                slider._settings.value = 78;
+                expect(slider.getValue()).toBe(78);
             });
 
             it ('can set value', function() {
+
+            });
+
+            it ('can set value but not fire events', function() {
 
             });
 
