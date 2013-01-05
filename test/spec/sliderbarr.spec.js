@@ -98,10 +98,6 @@
 
             });
 
-            it ('can change handle', function() {
-
-            });
-
             it ('can handle on keydown', function() {
 
             });
@@ -129,6 +125,28 @@
         });
 
         describe('Set and Get Values', function() {
+
+            it ('can change handle', function() {
+                var fakeValidateHandles = createFakeValidateHandles();
+                var fakeRenderHandleChanges = createFakeRenderHandles();
+                var fakeFireOnChange = createFakeFireOnChange();
+
+                var val = 22;
+                var step = 1;
+                slider._settings.step = step;
+                slider._settings.value = val;
+
+                slider._changeHandle('r');
+                expect(slider._settings.value).toBe(val + step);
+                expect(fakeValidateHandles).toHaveBeenCalled();
+                expect(fakeRenderHandleChanges).toHaveBeenCalled();
+                expect(fakeFireOnChange).toHaveBeenCalled();
+
+                slider._settings.value = val;
+
+                slider._changeHandle('l');
+                expect(slider._settings.value).toBe(val - step);
+            });
 
             it ('can validate value', function() {
                 var testValue = 50;
