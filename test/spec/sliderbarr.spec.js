@@ -2,6 +2,7 @@
 
     describe('Sliderbarr', function() {
         var slider = null;
+        var testValue = 56;
 
         beforeEach(function() {
             slider = new SliderBarr({
@@ -151,7 +152,14 @@
             });
 
             it ('can set slider value on drag', function() {
+                var testValue = 56;
+                var fakeGetValFromMouseEvent = createFakeGetValFromMouseEvent();
+                var fakeValidateHandles = createFakeValidateHandles();
 
+                slider._setSliderValueOnDrag({});
+                expect(slider._settings.value).toBe(testValue);
+                expect(fakeValidateHandles).toHaveBeenCalled();
+                expect(fakeGetValFromMouseEvent).toHaveBeenCalled();
             });
 
             it ('can get value', function() {
@@ -163,9 +171,9 @@
                 var testValue = 27;
                 var fireEvents = false;
 
-                var fakeValidateHandles = spyOn(slider, '_validateHandles').andCallFake(function() {});
-                var fakeRenderHandles = spyOn(slider, '_renderHandleChanges').andCallFake(function() {});
-                var fakeFireOnChange = spyOn(slider, '_fireOnChange').andCallFake(function() {});
+                var fakeValidateHandles = createFakeValidateHandles();
+                var fakeRenderHandles = createFakeRenderHandles();
+                var fakeFireOnChange = createFakeFireOnChange();
 
                 slider.setValue(testValue, fireEvents);
                 expect(slider._settings.value).toBe(testValue);
@@ -179,9 +187,9 @@
                 var testValue = 29;
                 var fireEvents = true;
 
-                var fakeValidateHandles = spyOn(slider, '_validateHandles').andCallFake(function() {});
-                var fakeRenderHandles = spyOn(slider, '_renderHandleChanges').andCallFake(function() {});
-                var fakeFireOnChange = spyOn(slider, '_fireOnChange').andCallFake(function() {});
+                var fakeValidateHandles = createFakeValidateHandles();
+                var fakeRenderHandles = createFakeRenderHandles();
+                var fakeFireOnChange = createFakeFireOnChange();
 
                 slider.setValue(testValue, fireEvents);
                 expect(slider._settings.value).toBe(testValue);
@@ -192,6 +200,24 @@
             });
 
         });
+
+        function createFakeGetValFromMouseEvent() {
+            return spyOn(slider, '_getValFromMouseEvent').andCallFake(function() {
+                return testValue;
+            });
+        };
+
+        function createFakeValidateHandles() {
+            return spyOn(slider, '_validateHandles').andCallFake(function() {});
+        };
+
+        function createFakeRenderHandles() {
+            return spyOn(slider, '_renderHandleChanges').andCallFake(function() {});
+        };
+        
+        function createFakeFireOnChange() {
+            return spyOn(slider, '_fireOnChange').andCallFake(function() {});
+        };
 
     });
 
