@@ -95,11 +95,29 @@
         describe('Events', function() {
 
             it ('can initialise events', function() {
-            
+
             });
 
             it ('can handle on keydown', function() {
+                var e = {
+                    keyCode: 37
+                };
 
+                var spyChangeHandle = spyOn(slider, '_changeHandle');
+                slider._onHandleKeydown(e);
+                expect(spyChangeHandle).toHaveBeenCalledWith('l');
+
+                spyChangeHandle.reset();
+
+                e.keyCode = 38;
+                slider._onHandleKeydown(e);
+                expect(spyChangeHandle).toHaveBeenCalledWith('r');
+
+                spyChangeHandle.reset();
+
+                e.keyCode = 0;
+                slider._onHandleKeydown(e);
+                expect(spyChangeHandle).not.toHaveBeenCalled();
             });
 
             it ('can handle on mousedown', function() {
@@ -254,7 +272,7 @@
         function createFakeRenderHandles() {
             return spyOn(slider, '_renderHandleChanges').andCallFake(function() {});
         };
-        
+
         function createFakeFireOnChange() {
             return spyOn(slider, '_fireOnChange').andCallFake(function() {});
         };
