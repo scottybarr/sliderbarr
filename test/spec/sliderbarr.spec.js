@@ -95,7 +95,7 @@
         describe('Events', function() {
 
             it ('can initialise events', function() {
-
+            
             });
 
             it ('can handle on keydown', function() {
@@ -257,6 +257,22 @@
         
         function createFakeFireOnChange() {
             return spyOn(slider, '_fireOnChange').andCallFake(function() {});
+        };
+
+        function createFakeHandleKeydown() {
+            return spyOn(slider, '_onHandleKeydown').andCallFake(function() {});
+        };
+
+        function createFakeHandleMousedown() {
+            return spyOn(slider, '_onHandleMousedown').andCallFake(function() {});
+        };
+
+        function createFakeSliderClick() {
+            return spyOn(slider, '_onSliderClick').andCallFake(function() {});
+        };
+
+        function createFakeMouseUp() {
+            return spyOn(slider, '_onMouseup').andCallFake(function() {});
         };
 
     });
