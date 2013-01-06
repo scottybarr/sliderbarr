@@ -125,7 +125,19 @@
             });
 
             it ('can handle on mouse move', function() {
+                var e = {};
 
+                fakeSetSliderValueOnDrag = createFakeSliderSetOnDrag();
+
+                slider._activeDrag = false;
+                slider._onHandleMousemove(e);
+                expect(fakeSetSliderValueOnDrag).not.toHaveBeenCalled();
+
+                fakeSetSliderValueOnDrag.reset();
+
+                slider._activeDrag = true;
+                slider._onHandleMousemove(e);
+                expect(fakeSetSliderValueOnDrag).toHaveBeenCalled();
             });
 
             it ('can react to slider click', function() {
@@ -291,6 +303,10 @@
 
         function createFakeMouseUp() {
             return spyOn(slider, '_onMouseup').andCallFake(function() {});
+        };
+
+        function createFakeSliderSetOnDrag() {
+            return spyOn(slider, '_setSliderValueOnDrag').andCallFake(function() {});
         };
 
     });
