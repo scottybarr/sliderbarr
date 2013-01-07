@@ -141,7 +141,18 @@
             });
 
             it ('can react to slider click', function() {
+                var fakeValFromMouseEvent = createFakeGetValFromMouseEvent();
+                var fakeValidateHandles = createFakeValidateHandles();
+                var fakeRenderHandleChanges = createFakeRenderHandles();
+                var fakeFireOnChange = createFakeFireOnChange();
 
+                var e = {};
+                var sliderClickResponse = slider._onSliderClick(e);
+                expect(fakeValFromMouseEvent).toHaveBeenCalled();
+                expect(fakeValidateHandles).toHaveBeenCalled();
+                expect(fakeRenderHandleChanges).toHaveBeenCalled();
+                expect(fakeFireOnChange).toHaveBeenCalled();
+                expect(sliderClickResponse).toBeFalsy();
             });
 
             it ('can handle mouseup', function() {
