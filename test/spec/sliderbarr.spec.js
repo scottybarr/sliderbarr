@@ -1,8 +1,8 @@
 (function() {
 
     describe('Sliderbarr', function() {
-        var slider = null;
-        var testValue = 56;
+        var slider = null,
+            testValue = 56;
 
         beforeEach(function() {
             slider = new SliderBarr({
@@ -17,14 +17,13 @@
         });
 
         it ('can construct', function() {
-            var fakeValidateHandles = spyOn(SliderBarr.prototype, '_validateHandles').andCallFake(function() {});
-            var fakeRender = spyOn(SliderBarr.prototype, '_render').andCallFake(function() {});
-            var fakeRenderLabels = spyOn(SliderBarr.prototype, '_renderEdgeLabels').andCallFake(function() {});
-            var fakeInitSelectors = spyOn(SliderBarr.prototype, '_initSelectors').andCallFake(function() {});
-            var fakeInitEvents = spyOn(SliderBarr.prototype, '_initEvents').andCallFake(function() {});
-            var fakeRenderHandleChanges = spyOn(SliderBarr.prototype, '_renderHandleChanges').andCallFake(function() {});
-
-            var slide = new SliderBarr({el: $('#slider')});
+            var fakeValidateHandles = spyOn(SliderBarr.prototype, '_validateHandles').andCallFake(function() {}),
+                fakeRender = spyOn(SliderBarr.prototype, '_render').andCallFake(function() {}),
+                fakeRenderLabels = spyOn(SliderBarr.prototype, '_renderEdgeLabels').andCallFake(function() {}),
+                fakeInitSelectors = spyOn(SliderBarr.prototype, '_initSelectors').andCallFake(function() {}),
+                fakeInitEvents = spyOn(SliderBarr.prototype, '_initEvents').andCallFake(function() {}),
+                fakeRenderHandleChanges = spyOn(SliderBarr.prototype, '_renderHandleChanges').andCallFake(function() {}),
+                slide = new SliderBarr({el: $('#slider')});
 
             expect(slide._settings.el).toEqual($('#slider'));
             expect(slide._settings.max).toBe(100);
@@ -141,13 +140,13 @@
             });
 
             it ('can react to slider click', function() {
-                var fakeValFromMouseEvent = createFakeGetValFromMouseEvent();
-                var fakeValidateHandles = createFakeValidateHandles();
-                var fakeRenderHandleChanges = createFakeRenderHandles();
-                var fakeFireOnChange = createFakeFireOnChange();
+                var fakeValFromMouseEvent = createFakeGetValFromMouseEvent(),
+                    fakeValidateHandles = createFakeValidateHandles(),
+                    fakeRenderHandleChanges = createFakeRenderHandles(),
+                    fakeFireOnChange = createFakeFireOnChange(),
+                    e = {},
+                    sliderClickResponse = slider._onSliderClick(e);
 
-                var e = {};
-                var sliderClickResponse = slider._onSliderClick(e);
                 expect(fakeValFromMouseEvent).toHaveBeenCalled();
                 expect(fakeValidateHandles).toHaveBeenCalled();
                 expect(fakeRenderHandleChanges).toHaveBeenCalled();
@@ -168,12 +167,12 @@
         describe('Set and Get Values', function() {
 
             it ('can change handle', function() {
-                var fakeValidateHandles = createFakeValidateHandles();
-                var fakeRenderHandleChanges = createFakeRenderHandles();
-                var fakeFireOnChange = createFakeFireOnChange();
+                var fakeValidateHandles = createFakeValidateHandles(),
+                    fakeRenderHandleChanges = createFakeRenderHandles(),
+                    fakeFireOnChange = createFakeFireOnChange(),
+                    val = 22,
+                    step = 1;
 
-                var val = 22;
-                var step = 1;
                 slider._settings.step = step;
                 slider._settings.value = val;
 
@@ -229,10 +228,10 @@
             });
 
             it ('can set slider value on drag', function() {
-                var testValue = 56;
-                var fakeGetValFromMouseEvent = createFakeGetValFromMouseEvent();
-                var fakeValidateHandles = createFakeValidateHandles();
-                var seenDrag = false;
+                var testValue = 56,
+                    fakeGetValFromMouseEvent = createFakeGetValFromMouseEvent(),
+                    fakeValidateHandles = createFakeValidateHandles(),
+                    seenDrag = false;
 
                 slider._settings.onDrag = function() { seenDrag = true; };
 
@@ -249,28 +248,25 @@
             });
 
             it ('can set value', function() {
-                var testValue = 27;
-                var fireEvents = false;
-
-                var fakeValidateHandles = createFakeValidateHandles();
-                var fakeRenderHandles = createFakeRenderHandles();
-                var fakeFireOnChange = createFakeFireOnChange();
+                var testValue = 27,
+                    fireEvents = false,
+                    fakeValidateHandles = createFakeValidateHandles(),
+                    fakeRenderHandles = createFakeRenderHandles(),
+                    fakeFireOnChange = createFakeFireOnChange();
 
                 slider.setValue(testValue, fireEvents);
                 expect(slider._settings.value).toBe(testValue);
-
                 expect(fakeValidateHandles).toHaveBeenCalled();
                 expect(fakeRenderHandles).toHaveBeenCalled();
                 expect(fakeFireOnChange).not.toHaveBeenCalled();
             });
 
             it ('can set value but not fire events', function() {
-                var testValue = 29;
-                var fireEvents = true;
-
-                var fakeValidateHandles = createFakeValidateHandles();
-                var fakeRenderHandles = createFakeRenderHandles();
-                var fakeFireOnChange = createFakeFireOnChange();
+                var testValue = 29,
+                    fireEvents = true,
+                    fakeValidateHandles = createFakeValidateHandles(),
+                    fakeRenderHandles = createFakeRenderHandles(),
+                    fakeFireOnChange = createFakeFireOnChange();
 
                 slider.setValue(testValue, fireEvents);
                 expect(slider._settings.value).toBe(testValue);
