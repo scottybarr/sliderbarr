@@ -16,7 +16,7 @@
             $('#slider-two').empty();
         });
 
-        it ('can construct', function () {
+        it('can construct', function () {
             var fakeValidateHandles = spyOn(SliderBarr.prototype, '_validateHandles').andCallFake(function () {}),
                 fakeRender = spyOn(SliderBarr.prototype, '_render').andCallFake(function () {}),
                 fakeRenderLabels = spyOn(SliderBarr.prototype, '_renderEdgeLabels').andCallFake(function () {}),
@@ -50,7 +50,7 @@
 
         describe('Rendering', function () {
 
-            it ('can render', function () {
+            it('can render', function () {
                 // Ensure there is no slider intialised first
                 expect($('#slider-two').find('div').length).toBe(0);
 
@@ -61,7 +61,7 @@
                 expect($('#slider-two').find('div').length).not.toBe(0);
             });
 
-            it ('can render edge labels', function () {
+            it('can render edge labels', function () {
                 // Ensure there is no slider intialised first
                 var el = $('#slider-two');
                 expect(el.find('div').length).toBe(0);
@@ -79,7 +79,7 @@
 
         describe('Selectors', function () {
 
-            it ('can initialise jquery selectors', function () {
+            it('can initialise jquery selectors', function () {
                 $el = $('#slider-two');
                 var slide = new SliderBarr({el: $el, labels: true});
                 expect($(document)).toEqual(slide._cache.document);
@@ -93,11 +93,11 @@
 
         describe('Events', function () {
 
-            it ('can initialise events', function () {
+            it('can initialise events', function () {
 
             });
 
-            it ('can handle on keydown', function () {
+            it('can handle on keydown', function () {
                 var e = {
                     keyCode: 37
                 };
@@ -119,11 +119,11 @@
                 expect(spyChangeHandle).not.toHaveBeenCalled();
             });
 
-            it ('can handle on mousedown', function () {
+            it('can handle on mousedown', function () {
 
             });
 
-            it ('can handle on mouse move', function () {
+            it('can handle on mouse move', function () {
                 var e = {};
 
                 fakeSetSliderValueOnDrag = createFakeSliderSetOnDrag();
@@ -139,7 +139,7 @@
                 expect(fakeSetSliderValueOnDrag).toHaveBeenCalled();
             });
 
-            it ('can react to slider click', function () {
+            it('can react to slider click', function () {
                 var fakeValFromMouseEvent = createFakeGetValFromMouseEvent(),
                     fakeValidateHandles = createFakeValidateHandles(),
                     fakeRenderHandleChanges = createFakeRenderHandles(),
@@ -154,11 +154,11 @@
                 expect(sliderClickResponse).toBeFalsy();
             });
 
-            it ('can handle mouseup', function () {
+            it('can handle mouseup', function () {
 
             });
 
-            it ('can fire on change', function () {
+            it('can fire on change', function () {
 
             });
 
@@ -166,7 +166,7 @@
 
         describe('Set and Get Values', function () {
 
-            it ('can change handle', function () {
+            it('can change handle', function () {
                 var fakeValidateHandles = createFakeValidateHandles(),
                     fakeRenderHandleChanges = createFakeRenderHandles(),
                     fakeFireOnChange = createFakeFireOnChange(),
@@ -188,7 +188,7 @@
                 expect(slider._settings.value).toBe(val - step);
             });
 
-            it ('can validate value', function () {
+            it('can validate value', function () {
                 var testValue = 50;
                 expect(slider._validateValue(testValue)).toBe(50);
                 testValue = 50.33333;
@@ -201,7 +201,7 @@
                 expect(slider._validateValue(testValue)).toBe(23.78);
             });
 
-            it ('can validate handles', function () {
+            it('can validate handles', function () {
                 var val = 9e9;
                 slider._settings.value = val;
                 slider._validateHandles();
@@ -218,7 +218,7 @@
                 expect(slider._settings.value).toBe(val);
             });
 
-            it ('can get value from mouse event', function () {
+            it('can get value from mouse event', function () {
                 var e = {
                     pageX: 500
                 };
@@ -227,7 +227,7 @@
                 expect(slider._getValFromMouseEvent(e)).toBe(500);
             });
 
-            it ('can set slider value on drag', function () {
+            it('can set slider value on drag', function () {
                 var testValue = 56,
                     fakeGetValFromMouseEvent = createFakeGetValFromMouseEvent(),
                     fakeValidateHandles = createFakeValidateHandles(),
@@ -242,12 +242,12 @@
                 expect(seenDrag).toBeTruthy();
             });
 
-            it ('can get value', function () {
+            it('can get value', function () {
                 slider._settings.value = 78;
                 expect(slider.getValue()).toBe(78);
             });
 
-            it ('can set value', function () {
+            it('can set value', function () {
                 var testValue = 27,
                     fireEvents = false,
                     fakeValidateHandles = createFakeValidateHandles(),
@@ -261,7 +261,7 @@
                 expect(fakeFireOnChange).not.toHaveBeenCalled();
             });
 
-            it ('can set value but not fire events', function () {
+            it('can set value but not fire events', function () {
                 var testValue = 29,
                     fireEvents = true,
                     fakeValidateHandles = createFakeValidateHandles(),
