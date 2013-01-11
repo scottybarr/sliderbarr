@@ -1,4 +1,5 @@
 (function () {
+    'use strict';
 
     describe('Sliderbarr', function () {
         var slider = null,
@@ -80,8 +81,8 @@
         describe('Selectors', function () {
 
             it('can initialise jquery selectors', function () {
-                $el = $('#slider-two');
-                var slide = new SliderBarr({el: $el, labels: true});
+                var $el = $('#slider-two'),
+                    slide = new SliderBarr({el: $el, labels: true});
                 expect($(document)).toEqual(slide._cache.document);
                 expect($el).toEqual(slide._cache.slider);
                 expect($el.find('.bar')).toEqual(slide._cache.bar);
@@ -100,9 +101,9 @@
             it('can handle on keydown', function () {
                 var e = {
                     keyCode: 37
-                };
+                    },
+                    spyChangeHandle = spyOn(slider, '_changeHandle');
 
-                var spyChangeHandle = spyOn(slider, '_changeHandle');
                 slider._onHandleKeydown(e);
                 expect(spyChangeHandle).toHaveBeenCalledWith('l');
 
@@ -124,9 +125,8 @@
             });
 
             it('can handle on mouse move', function () {
-                var e = {};
-
-                fakeSetSliderValueOnDrag = createFakeSliderSetOnDrag();
+                var e = {},
+                    fakeSetSliderValueOnDrag = createFakeSliderSetOnDrag();
 
                 slider._activeDrag = false;
                 slider._onHandleMousemove(e);
