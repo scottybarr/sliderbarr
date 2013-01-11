@@ -103,12 +103,13 @@
 
             it('can render edge labels', function () {
                 // Ensure there is no slider intialised first
-                var el = $('#slider-two');
+                var el = $('#slider-two'),
+                    slide = null;
                 expect(el.find('div').length).toBe(0);
                 expect(el.find('.label').length).toBe(0);
 
                 // Initialise slider
-                var slide = new SliderBarr({el: el, labels: true});
+                slide = new SliderBarr({el: el, labels: true});
 
                 // Ensure the slider has new DOM elements
                 expect(el.find('div').length).not.toBe(0);
@@ -141,7 +142,7 @@
                 var e = {
                     keyCode: 37
                 },
-                spyChangeHandle = spyOn(slider, '_changeHandle');
+                    spyChangeHandle = spyOn(slider, '_changeHandle');
 
                 slider._onHandleKeydown(e);
                 expect(spyChangeHandle).toHaveBeenCalledWith('l');
