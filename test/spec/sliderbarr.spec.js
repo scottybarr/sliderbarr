@@ -1,9 +1,48 @@
 (function () {
     'use strict';
 
+    var slider = null,
+        testValue = 56;
+
+    function createFakeGetValFromMouseEvent() {
+        return spyOn(slider, '_getValFromMouseEvent').andCallFake(function () {
+            return testValue;
+        });
+    }
+
+    function createFakeValidateHandles() {
+        return spyOn(slider, '_validateHandles').andCallFake(function () {});
+    }
+
+    function createFakeRenderHandles() {
+        return spyOn(slider, '_renderHandleChanges').andCallFake(function () {});
+    }
+
+    function createFakeFireOnChange() {
+        return spyOn(slider, '_fireOnChange').andCallFake(function () {});
+    }
+
+    function createFakeHandleKeydown() {
+        return spyOn(slider, '_onHandleKeydown').andCallFake(function () {});
+    }
+
+    function createFakeHandleMousedown() {
+        return spyOn(slider, '_onHandleMousedown').andCallFake(function () {});
+    }
+
+    function createFakeSliderClick() {
+        return spyOn(slider, '_onSliderClick').andCallFake(function () {});
+    }
+
+    function createFakeMouseUp() {
+        return spyOn(slider, '_onMouseup').andCallFake(function () {});
+    }
+
+    function createFakeSliderSetOnDrag() {
+        return spyOn(slider, '_setSliderValueOnDrag').andCallFake(function () {});
+    }
+
     describe('Sliderbarr', function () {
-        var slider = null,
-            testValue = 56;
 
         beforeEach(function () {
             slider = new SliderBarr({
@@ -101,8 +140,8 @@
             it('can handle on keydown', function () {
                 var e = {
                     keyCode: 37
-                    },
-                    spyChangeHandle = spyOn(slider, '_changeHandle');
+                },
+                spyChangeHandle = spyOn(slider, '_changeHandle');
 
                 slider._onHandleKeydown(e);
                 expect(spyChangeHandle).toHaveBeenCalledWith('l');
@@ -277,44 +316,6 @@
             });
 
         });
-
-        function createFakeGetValFromMouseEvent() {
-            return spyOn(slider, '_getValFromMouseEvent').andCallFake(function () {
-                return testValue;
-            });
-        };
-
-        function createFakeValidateHandles() {
-            return spyOn(slider, '_validateHandles').andCallFake(function () {});
-        };
-
-        function createFakeRenderHandles() {
-            return spyOn(slider, '_renderHandleChanges').andCallFake(function () {});
-        };
-
-        function createFakeFireOnChange() {
-            return spyOn(slider, '_fireOnChange').andCallFake(function () {});
-        };
-
-        function createFakeHandleKeydown() {
-            return spyOn(slider, '_onHandleKeydown').andCallFake(function () {});
-        };
-
-        function createFakeHandleMousedown() {
-            return spyOn(slider, '_onHandleMousedown').andCallFake(function () {});
-        };
-
-        function createFakeSliderClick() {
-            return spyOn(slider, '_onSliderClick').andCallFake(function () {});
-        };
-
-        function createFakeMouseUp() {
-            return spyOn(slider, '_onMouseup').andCallFake(function () {});
-        };
-
-        function createFakeSliderSetOnDrag() {
-            return spyOn(slider, '_setSliderValueOnDrag').andCallFake(function () {});
-        };
 
     });
 
