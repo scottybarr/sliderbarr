@@ -88,5 +88,5 @@ grunt jasmine
 ```
 
 ## License
-Copyright (c) 2012 Scott Barr  
+Copyright (c) 2013 Scott Barr
 Licensed under the MIT license.
