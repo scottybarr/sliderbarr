@@ -199,7 +199,15 @@
             });
 
             it('can fire on change', function () {
+                var seenChange = false;
+                slider._fireOnChange();
+                expect(seenChange).toBeFalsy();
 
+                slider._settings.onChange = function() {
+                    seenChange = true;
+                };
+                slider._fireOnChange();
+                expect(seenChange).toBeTruthy();
             });
 
         });
