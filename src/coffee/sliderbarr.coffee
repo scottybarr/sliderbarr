@@ -18,7 +18,6 @@ class SliderBarr
         @_cache      = []
 
         $.extend(@_settings, userSettings)
-
         @_validateHandles()
         @_render()
         @_renderEdgeLabels() if @_settings.labels
@@ -47,20 +46,18 @@ class SliderBarr
             .find('.max').text(@_settings.max)
 
     _initSelectors:->
-        @_cache['document'] = $(document)
-        @_cache['slider']   = @_settings.el
-        @_cache['bar']      = @_settings.el.find('.bar') if @_settings.bar
-        @_cache['handle']   = @_settings.el.find('.handle')
-        @_cache['current']  = @_settings.el.find('.current') if @_settings.labels
-
-        @_sliderAttr =
-            'width' : @_cache['slider'].outerWidth()
+        @_cache.document = $(document)
+        @_cache.slider   = @_settings.el
+        @_cache.bar      = @_settings.el.find('.bar') if @_settings.bar
+        @_cache.handle   = @_settings.el.find('.handle')
+        @_cache.current  = @_settings.el.find('.current') if @_settings.labels
+        @_sliderAttr = {'width' : @_cache.slider.outerWidth()}
 
     _initEvents:->
-        @_cache['handle'].on('keydown', @_onHandleKeydown)
-        @_cache['handle'].on('mousedown', @_onHandleMousedown)
-        @_cache['slider'].on('click', @_onSliderClick)
-        @_cache['document'].on('mouseup', @_onMouseup)
+        @_cache.handle.on('keydown', @_onHandleKeydown)
+        @_cache.handle.on('mousedown', @_onHandleMousedown)
+        @_cache.slider.on('click', @_onSliderClick)
+        @_cache.document.on('mouseup', @_onMouseup)
 
     _changeHandle: (dir)->
         @_settings.value = @_settings.value + (if dir is 'r' then @_settings.step else -@_settings.step)
@@ -69,16 +66,16 @@ class SliderBarr
         @_fireOnChange()
 
     _renderHandleChanges: ->
-        @_cache['handle'].css('left', @_settings.value + '%')
-        @_cache['bar'].css('width' : @_settings.value + '%') if @_settings.bar
-        @_cache['current'].text(@_settings.value) if @_settings.labels
+        @_cache.handle.css('left', @_settings.value + '%')
+        @_cache.bar.css('width' : @_settings.value + '%') if @_settings.bar
+        @_cache.current.text(@_settings.value) if @_settings.labels
 
     _onHandleKeydown: (e)=>
         @_changeHandle(if e.keyCode in [37, 40, 65, 83] then 'l' else 'r') if e.keyCode in [37, 38, 39, 40, 65, 68, 83, 87]
 
     _onHandleMousedown: (e)=>
         @_activeDrag = true
-        @_cache['document'].on('mousemove', @_onHandleMousemove)
+        @_cache.document.on('mousemove', @_onHandleMousemove)
         false
 
     _onHandleMousemove: (e)=>
@@ -89,14 +86,14 @@ class SliderBarr
         @_validateHandles()
         @_renderHandleChanges()
         @_fireOnChange()
-        @_cache['handle'].focus()
+        @_cache.handle.focus()
         false
 
     _onMouseup: (e)=>
         if @_activeDrag
             @_setSliderValueOnDrag(e)
             @_fireOnChange()
-            @_cache['handle'].focus()
+            @_cache.handle.focus()
         @_activeDrag = false
         @
 
@@ -104,7 +101,7 @@ class SliderBarr
         @_settings.onChange(@_settings.value) if @_settings.onChange isnt null
 
     _getValFromMouseEvent: (e)=>
-        @_validateValue(((e.pageX - @_cache['slider'].offset().left) / @_sliderAttr.width) * 100)
+        @_validateValue(((e.pageX - @_cache.slider.offset().left) / @_sliderAttr.width) * 100)
 
     _setSliderValueOnDrag: (e)->
         @_settings.value = @_getValFromMouseEvent(e)
@@ -117,8 +114,7 @@ class SliderBarr
         [int, places] = (@_settings.step + "").split(".")
         parseFloat(val.toFixed(places.length));
 
-    getValue: ->
-        @_settings.value
+    getValue: -> @_settings.value
 
     setValue: (value, fireEvents = true) ->
         @_settings.value = value
@@ -126,4 +122,7 @@ class SliderBarr
         @_renderHandleChanges()
         @_fireOnChange() if fireEvents
 
-if typeof define is "function" && define.amd then define("SliderBarr", [], -> SliderBarr) else window.SliderBarr = SliderBarr
+if typeof define is "function" and define.amd
+    define("SliderBarr", [], -> SliderBarr)
+else
+    window.SliderBarr = SliderBarr
