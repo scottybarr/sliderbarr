@@ -179,3 +179,5 @@ phantomjs*
 *.sublime*
 node_modules
 dist/css
+example
+_SpecRunner.html
