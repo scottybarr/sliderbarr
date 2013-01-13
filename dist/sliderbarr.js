@@ -153,7 +153,7 @@
     };
 
     SliderBarr.prototype._fireOnChange = function() {
-      if (this._settings.onChange !== null) {
+      if (this._settings.onChange != null) {
         return this._settings.onChange(this._settings.value);
       }
     };
@@ -165,7 +165,7 @@
     SliderBarr.prototype._setSliderValueOnDrag = function(e) {
       this._settings.value = this._getValFromMouseEvent(e);
       this._validateHandles();
-      if (this._settings.onDrag !== null) {
+      if (this._settings.onDrag != null) {
         this._settings.onDrag(this._settings.value);
       }
       return this._renderHandleChanges();

@@ -98,7 +98,7 @@ class SliderBarr
         @
 
     _fireOnChange:->
-        @_settings.onChange(@_settings.value) if @_settings.onChange isnt null
+        @_settings.onChange(@_settings.value) if @_settings.onChange?
 
     _getValFromMouseEvent: (e)=>
         @_validateValue(((e.pageX - @_cache.slider.offset().left) / @_sliderAttr.width) * 100)
@@ -106,7 +106,7 @@ class SliderBarr
     _setSliderValueOnDrag: (e)->
         @_settings.value = @_getValFromMouseEvent(e)
         @_validateHandles()
-        @_settings.onDrag(@_settings.value) if @_settings.onDrag isnt null
+        @_settings.onDrag(@_settings.value) if @_settings.onDrag?
         @_renderHandleChanges()
 
     _validateValue: (val) ->
