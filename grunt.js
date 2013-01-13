@@ -28,8 +28,7 @@ module.exports = function(grunt) {
         files: 'src/sass/*.scss',
         tasks: 'compass'
       }
-    },
-    uglify: {}
+    }
     });
 
     grunt.loadNpmTasks('grunt-jasmine-task');
