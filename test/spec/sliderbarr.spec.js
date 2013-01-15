@@ -26,6 +26,10 @@
         return spyOn(slider, '_onHandleKeydown').andCallFake(function () {});
     }
 
+    function createFakeHandleMousemove() {
+        return spyOn(slider, '_onHandleMousemove').andCallFake(function () {});
+    }
+
     function createFakeHandleMousedown() {
         return spyOn(slider, '_onHandleMousedown').andCallFake(function () {});
     }
@@ -140,8 +144,8 @@
 
             it('can handle on keydown', function () {
                 var e = {
-                    keyCode: 37
-                },
+                        keyCode: 37
+                    },
                     spyChangeHandle = spyOn(slider, '_changeHandle');
 
                 slider._onHandleKeydown(e);
@@ -161,6 +165,12 @@
             });
 
             it('can handle on mousedown', function () {
+                var retVal,
+                    fakeMouseMove = createFakeHandleMousemove();
+
+                slider._activeDrag = false;
+                retVal = slider._onHandleMousedown({});
+                expect(retVal).toBeFalsy();
 
             });
 
