@@ -205,12 +205,28 @@
             });
 
             it('can handle mouseup', function () {
-                var e = {},
-                    mouseup;
+                var e = {
+                        'pageX': 75
+                    },
+                    mouseup,
+                    spySetSliderValueOnDrag,
+                    spyFireOnChange;
+
+                slider.setValue(93);
+                slider._sliderAttr.width = 100;
+
                 slider._activeDrag = false;
                 mouseup = slider._onMouseup(e);
                 expect(slider._activeDrag).toBeFalsy();
                 expect(mouseup).toBe(slider);
+
+                slider._activeDrag = true;
+                spySetSliderValueOnDrag = spyOn(slider, '_setSliderValueOnDrag').andCallThrough();
+                spyFireOnChange = spyOn(slider, '_fireOnChange').andCallThrough();
+                slider._onMouseup(e);
+                expect(spySetSliderValueOnDrag).toHaveBeenCalledWith(e);
+                expect(spyFireOnChange).toHaveBeenCalled();
+                expect(slider.getValue()).toBe(e.pageX);
             });
 
             it('can fire on change', function () {
