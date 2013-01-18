@@ -205,7 +205,12 @@
             });
 
             it('can handle mouseup', function () {
-
+                var e = {},
+                    mouseup;
+                slider._activeDrag = false;
+                mouseup = slider._onMouseup(e);
+                expect(slider._activeDrag).toBeFalsy();
+                expect(mouseup).toBe(slider);
             });
 
             it('can fire on change', function () {
