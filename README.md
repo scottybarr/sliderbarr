@@ -42,8 +42,9 @@ var slider = new SliderBarr({
 
 ## Future Features
 * Range slider
-* Vertical slider option (If there's enough interest)
+* Vertical slider option
 * Support for touchscreen devices.
+* Remove jQuery dependency.
 
 ## Building
 
