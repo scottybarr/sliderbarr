@@ -38,7 +38,7 @@ module.exports = function(grunt) {
         watch: {
             coffee: {
                 files : ['src/coffee/*.coffee', 'test/spec/*.coffee'],
-                tasks: 'coffee'
+                tasks: ['coffee', 'uglify']
             },
             compass: {
                 files: 'src/sass/*.scss',
