@@ -22,9 +22,16 @@
       "url": "https://github.com/scottybarr/sliderbarr/blob/master/LICENSE-MIT"
     }
   ],
-  "dependencies": {
-      "coffee-script": ">= 1.3.x",
-      "grunt-jasmine-task": ">= 0.2.x"
-  },
-  "keywords": []
+  "dependencies": {},
+  "keywords": [],
+  "devDependencies": {
+    "coffee-script": ">= 1.5.x",
+    "grunt": "~0.4.1",
+    "grunt-jasmine-task": ">= 0.2.x",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-compass": "~0.2.0",
+    "grunt-contrib-jasmine": "~0.4.2",
+    "grunt-contrib-uglify": "~0.2.0"
+  }
 }
