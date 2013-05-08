@@ -30,8 +30,8 @@ module.exports = function(grunt) {
             slidertest: {
                 src: ['dist/sliderbarr.min.js'],
                 options: {
-                    specs: 'test/spec/*.js',
-                    template: 'test/SpecRunner.html'
+                    template: 'test/SpecRunner.html',
+                    specs: 'test/spec/*.js'
                 }
             }
         },
