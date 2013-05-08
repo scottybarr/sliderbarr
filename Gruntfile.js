@@ -31,7 +31,7 @@ module.exports = function(grunt) {
                 src: ['dist/sliderbarr.min.js'],
                 options: {
                     template: 'test/SpecRunner.html',
-                    specs: 'test/spec/*.js'
+                    specs: 'test/spec/*.coffee'
                 }
             }
         },
