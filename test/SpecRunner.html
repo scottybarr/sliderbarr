@@ -6,6 +6,17 @@
 
   <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.3.1/jasmine_favicon.png">
   <link rel="stylesheet" type="text/css" href="lib/jasmine-1.3.1/jasmine.css">
+
+  <!-- phantomjs template requirements -->
+  <link rel="stylesheet" type="text/css" href=".grunt/grunt-contrib-jasmine/jasmine.css">
+  <script src="./.grunt/grunt-contrib-jasmine/jasmine.js"></script>
+  <script src="./.grunt/grunt-contrib-jasmine/jasmine-html.js"></script>
+  <script src="./dist/sliderbarr.min.js"></script>
+  <script src="./test/spec/sliderbarr.spec.coffee.js"></script>
+  <script src="./test/spec/sliderbarr.spec.js"></script>
+  <script src="./.grunt/grunt-contrib-jasmine/reporter.js"></script>
+  <script src="./.grunt/grunt-contrib-jasmine/jasmine-helper.js"></script>
+  <!-- browser template requirements -->
   <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine.js"></script>
   <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine-html.js"></script>
 
@@ -16,17 +27,6 @@
     <!-- include spec files here... -->
   <script type="text/javascript" src="spec/sliderbarr.spec.js"></script>
 
-  <!-- phantomjs template requirements -->
-  <link rel="stylesheet" type="text/css" href=".grunt/grunt-contrib-jasmine/jasmine.css">
-  <script src="./.grunt/grunt-contrib-jasmine/jasmine.js"></script>
-  <script src="./.grunt/grunt-contrib-jasmine/jasmine-html.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="./test/lib/jasmine-1.3.1/jasmine-html.js"></script>
-  <script src="./dist/sliderbarr.min.js"></script>
-  <script src="./test/spec/sliderbarr.spec.coffee.js"></script>
-  <script src="./test/spec/sliderbarr.spec.js"></script>
-  <script src="./.grunt/grunt-contrib-jasmine/reporter.js"></script>
-  <script src="./.grunt/grunt-contrib-jasmine/jasmine-helper.js"></script>
   <script type="text/javascript">
       (function() {
         var jasmineEnv = jasmine.getEnv();
