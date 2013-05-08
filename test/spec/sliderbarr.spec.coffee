@@ -1,47 +1,12 @@
 'use strict'
 
-createSpyOnSliderBarrProto = (method) ->
-    spyOn(SliderBarr.prototype, method).andCallFake(->)
-
-createFakeSpyOnSlider = (method) ->
-    spyOn(slider, method).andCallFake(->)
-
-createFakeGetValFromMouseEvent = ->
-    spyOn(slider, '_getValFromMouseEvent').andCallFake(-> testValue)
-
-createFakeValidateHandles = ->
-    createFakeSpyOnSlider('_validateHandles')
-
-createFakeRenderHandles = ->
-    createFakeSpyOnSlider('_renderHandleChanges')
-
-createFakeFireOnChange = ->
-    createFakeSpyOnSlider('_fireOnChange')
-
-createFakeHandleKeydown = ->
-    createFakeSpyOnSlider('_onHandleKeydown')
-
-createFakeHandleMousemove = ->
-    createFakeSpyOnSlider('_onHandleMousemove')
-
-createFakeHandleMousedown = ->
-    createFakeSpyOnSlider('_onHandleMousedown')
-
-createFakeSliderClick = ->
-    createFakeSpyOnSlider('_onSliderClick')
-
-createFakeMouseUp = ->
-    createFakeSpyOnSlider('_onMouseup')
-
-createFakeSliderSetOnDrag = ->
-    createFakeSpyOnSlider('_setSliderValueOnDrag')
-
-slider     = null
-testValue  = 58
-$slider    = $('#slider')
-$sliderTwo = $('#slider-two')
-
 describe('Sliderbarr', ->
+
+    slider     = null
+    testValue  = 58
+    $slider    = $('#slider')
+    $sliderTwo = $('#slider-two')
+
     beforeEach(->
         slider = new SliderBarr(
             el:     $slider
@@ -53,6 +18,14 @@ describe('Sliderbarr', ->
     afterEach(->
         $('#slider-two').empty()
     )
+
+    createSpyOnSliderBarrProto = (method) ->
+        spyOn(SliderBarr.prototype, method).andCallFake(->)
+
+
+    createFakeGetValFromMouseEvent = ->
+        spyOn(slider, '_getValFromMouseEvent').andCallFake(-> testValue)
+
 
     it('can construct', ->
         fakeValidateHandles     = createSpyOnSliderBarrProto('_validateHandles')
@@ -102,5 +75,121 @@ describe('Sliderbarr', ->
             expect($('#slider-two').find('div').length).not.toBe(0)
             expect($('#slider-two').find('.label').length).not.toBe(0)
         )
+    )
+
+    describe('Selectors', ->
+        it('can initialise jquery selectors', ->
+            slide = new SliderBarr(el: $sliderTwo, labels: true)
+            expect($(document)).toEqual(slide._cache.document)
+            expect($sliderTwo).toEqual(slide._cache.slider)
+            expect($sliderTwo.find('.bar')).toEqual(slide._cache.bar)
+            expect($sliderTwo.find('.handle')).toEqual(slide._cache.handle)
+            expect($sliderTwo.find('.current')).toEqual(slide._cache.current)
+        )
+    )
+
+    describe('Get and Set Values', ->
+        it('can change handle', ->
+            fakeValidateHandles     = spyOn(slider, '_validateHandles').andCallFake(->)
+            fakeRenderHandleChanges = spyOn(slider, '_renderHandleChanges').andCallFake(->)
+            fakeFireOnChange        = spyOn(slider, '_fireOnChange').andCallFake(->)
+            val  = 22
+            step = 1
+            slider._settings.step  = step
+            slider._settings.value = val
+
+            slider._changeHandle('r')
+            expect(slider._settings.value).toBe(val + step)
+            expect(fakeValidateHandles).toHaveBeenCalled()
+            expect(fakeRenderHandleChanges).toHaveBeenCalled()
+            expect(fakeFireOnChange).toHaveBeenCalled()
+
+            slider._settings.value = val
+            slider._changeHandle('l')
+            expect(slider._settings.value).toBe(val - step)
+        )
+
+        it('can validate value', ->
+            testValue = 50
+            expect(slider._validateValue(testValue)).toBe(50)
+            testValue = 50.33333
+            expect(slider._validateValue(testValue)).toBe(50)
+
+            slider._settings.step = 0.25
+            testValue = 23.75
+            expect(slider._validateValue(testValue)).toBe(23.75)
+            testValue = 23.7786534
+            expect(slider._validateValue(testValue)).toBe(23.78)
+        )
+
+        it('can validate handles', ->
+            val = 9e9
+            slider._settings.value = val
+            slider._validateHandles()
+            expect(slider._settings.value).toBe(slider._settings.max)
+
+            val = -9e9
+            slider._settings.value = val
+            slider._validateHandles()
+            expect(slider._settings.value).toBe(slider._settings.min)
+
+            val = 27
+            slider._settings.value = val
+            slider._validateHandles()
+            expect(slider._settings.value).toBe(val)
+        )
+
+        it('can set slider value on drag', ->
+            testValue                = 56
+            fakeGetValFromMouseEvent = spyOn(slider, '_getValFromMouseEvent').andCallFake(-> testValue)
+            fakeValidateHandles      = spyOn(slider, '_validateHandles').andCallFake(->)
+            seenDrag                 = false
+
+            slider._settings.onDrag = -> seenDrag = true
+
+            slider._setSliderValueOnDrag({})
+            expect(slider._settings.value).toBe(testValue)
+            expect(fakeValidateHandles).toHaveBeenCalled()
+            expect(fakeGetValFromMouseEvent).toHaveBeenCalled()
+            expect(seenDrag).toBeTruthy()
+        )
+
+        it('can get value', ->
+            slider._settings.value = 78
+            expect(slider.getValue()).toBe(78)
+        )
+
+        it('can set value', ->
+            testValue  = 27
+            fireEvents = false
+            fakeValidateHandles = spyOn(slider, '_validateHandles').andCallFake(->)
+            fakeRenderHandles   = spyOn(slider, '_renderHandleChanges').andCallFake(->)
+            fakeFireOnChange    = spyOn(slider, '_fireOnChange').andCallFake(->)
+
+            slider.setValue(testValue, fireEvents)
+            expect(slider._settings.value).toBe(testValue)
+            expect(fakeValidateHandles).toHaveBeenCalled()
+            expect(fakeRenderHandles).toHaveBeenCalled()
+            expect(fakeFireOnChange).not.toHaveBeenCalled()
+        )
+
+        it('can set value but not fire events', ->
+            testValue  = 29
+            fireEvents = true
+            fakeValidateHandles = spyOn(slider, '_validateHandles').andCallFake(->)
+            fakeRenderHandles   = spyOn(slider, '_renderHandleChanges').andCallFake(->)
+            fakeFireOnChange    = spyOn(slider, '_fireOnChange').andCallFake(->)
+
+            slider.setValue(testValue, fireEvents)
+            expect(slider._settings.value).toBe(testValue)
+
+            expect(fakeValidateHandles).toHaveBeenCalled()
+            expect(fakeRenderHandles).toHaveBeenCalled()
+            expect(fakeFireOnChange).toHaveBeenCalled()
+        )
+    )
+
+    describe('Events', ->
+
     )
 )
