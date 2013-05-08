@@ -3,7 +3,9 @@
 A simple and lightweight JavaScript slider component that **does NOT depend on jQuery UI**.
 
 ## Example
-[View the example here](http://scottybarr.github.com/sliderbarr)
+[View the example here](http://scottybarr.github.com/sliderbarr/index.html)
+
+[Unit Tests](http://scottybarr.github.io/sliderbarr/test/SpecRunner.html)
 
 ## Getting Started
 SliderBarr is written in CoffeeScript, styled using SASS and uses qunit for unit tests.
