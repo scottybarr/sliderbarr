@@ -22,7 +22,7 @@ In your web page:
 <body>
 <div id="slider" class="sliderbarr"></div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="dist/sliderbarr.min.js"></script>
 <script>
 var slider = new SliderBarr({
