@@ -69,7 +69,7 @@
                 fakeRenderHandleChanges = spyOn(SliderBarr.prototype, '_renderHandleChanges').andCallFake(function () {}),
                 slide = new SliderBarr({el: $('#slider')});
 
-            expect(slide._settings.el).toEqual($('#slider'));
+            expect(slide._settings.el).toEqual($('#slider').get(0));
             expect(slide._settings.max).toBe(100);
             expect(slide._settings.min).toBe(0);
             expect(slide._settings.value).toBe(25);
@@ -80,7 +80,6 @@
             expect(slide._settings.onDrag).toBeNull();
 
             expect(slide._activeDrag).toBeFalsy();
-            expect(slide._sliderAttr).toEqual({});
             expect(slide._cache).toEqual([]);
 
             expect(fakeValidateHandles).toHaveBeenCalled();
@@ -127,11 +126,10 @@
             it('can initialise jquery selectors', function () {
                 var $el = $('#slider-two'),
                     slide = new SliderBarr({el: $el, labels: true});
-                expect($(document)).toEqual(slide._cache.document);
-                expect($el).toEqual(slide._cache.slider);
-                expect($el.find('.bar')).toEqual(slide._cache.bar);
-                expect($el.find('.handle')).toEqual(slide._cache.handle);
-                expect($el.find('.current')).toEqual(slide._cache.current);
+                expect($el.get(0)).toEqual(slide._cache.slider);
+                expect($el.find('.bar').get(0)).toEqual(slide._cache.bar);
+                expect($el.find('.handle').get(0)).toEqual(slide._cache.handle[0]);
+                expect($el.find('.current').get(0)).toEqual(slide._cache.current);
             });
 
         });
@@ -213,7 +211,6 @@
                     spyFireOnChange;
 
                 slider.setValue(93);
-                slider._sliderAttr.width = 100;
 
                 slider._activeDrag = false;
                 mouseup = slider._onMouseup(e);
@@ -302,7 +299,6 @@
                     pageX: 500
                 };
 
-                slider._sliderAttr.width = 100;
                 expect(slider._getValFromMouseEvent(e)).toBe(500);
             });
 

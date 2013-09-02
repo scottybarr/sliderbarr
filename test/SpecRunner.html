@@ -7,6 +7,15 @@
   <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.3.1/jasmine_favicon.png">
   <link rel="stylesheet" type="text/css" href="lib/jasmine-1.3.1/jasmine.css">
 
+  <style type="text/css">
+    .sliderbarr {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+    }
+  </style>
+
   <!-- phantomjs template requirements -->
   <link rel="stylesheet" type="text/css" href=".grunt/grunt-contrib-jasmine/jasmine.css">
   <script src="./.grunt/grunt-contrib-jasmine/jasmine.js"></script>
@@ -58,9 +67,9 @@
 </head>
 
 <body>
-<div style="display:none;">
-    <div id="slider" class="sliderbarr"></div>
-    <div id="slider-two" class="sliderbarr"></div>
-</div>
+    <div style="visibility:hidden">
+        <div id="slider" class="sliderbarr"></div>
+        <div id="slider-two" class="sliderbarr"></div>
+    </div>
 </body>
 </html>
