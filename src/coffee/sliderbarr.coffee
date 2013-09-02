@@ -1,8 +1,8 @@
 class SliderBarr
     'use strict'
-	
-    constructor: (userSettings)->
-        @_settings = 
+
+    constructor: (userSettings) ->
+        @_settings =
             el       : null
             max      : 100
             min      : 0
@@ -14,10 +14,12 @@ class SliderBarr
             onDrag   : null
 
         @_activeDrag = false
-        @_sliderAttr = {}
-        @_cache      = []
+        @_cache      = {}
 
-        $.extend(@_settings, userSettings)
+        for k of @_settings
+            @_settings[k] = userSettings[k] if userSettings.hasOwnProperty(k)
+
+        @_settings.el = @_getSliderElement()
         @_validateHandles()
         @_render()
         @_renderEdgeLabels() if @_settings.labels
@@ -25,85 +27,91 @@ class SliderBarr
         @_initEvents()
         @_renderHandleChanges()
 
+    _getSliderElement: ->
+        if toString.call(@_settings.el) is '[object String]'
+            return document.getElementById(@_settings.el)
+        return @_settings.el.get(0)
+
+    _initSelectors: ->
+        @_cache = {
+            'slider'   : @_settings.el
+            'bar'      : @_settings.el.getElementsByClassName('bar')[0] if @_settings.bar
+            'handle'   : @_settings.el.getElementsByClassName('handle')
+            'current'  : @_settings.el.getElementsByClassName('current')[0] if @_settings.labels
+            'width'    : @_settings.el.offsetWidth
+        }
+
+    _initEvents: ->
+        for h in @_cache.handle
+            h.addEventListener('keydown', @_onHandleKeydown)
+            h.addEventListener('mousedown', @_onHandleMousedown)
+        @_cache.slider.addEventListener('click', @_onSliderClick)
+        document.addEventListener('mouseup', @_onMouseup)
+
+    _changeHandle: (dir) ->
+        @_settings.value = @_settings.value + (if dir is 'r' then @_settings.step else -@_settings.step)
+        @_validateHandles()
+        @_renderHandleChanges()
+        @_fireOnChange()
+
     _validateHandles: ->
         @_settings.value = Math.round(@_settings.value / @_settings.step) * @_settings.step if @_settings.step isnt 1
         @_settings.value = @_validateValue(@_settings.value)
         @_settings.value = @_settings.max if @_settings.value > @_settings.max
         @_settings.value = @_settings.min if @_settings.value < @_settings.min
 
-    _render:->
-        @_settings.el.append('
+    _render: ->
+        @_settings.el.innerHTML += '''
             <span class="label min"></span>
             <span class="label current"></span>
             <span class="label max"></span>'
-        ) if @_settings.labels
-        @_settings.el.append('<div class="bar"></div>') if @_settings.bar
-        @_settings.el.append('<a href="#" class="handle"></a>')
+        ''' if @_settings.labels
+        @_settings.el.innerHTML += '<div class="bar"></div>' if @_settings.bar
+        @_settings.el.innerHTML += '<a href="#" class="handle"></a>'
 
     _renderEdgeLabels: ->
-        @_settings.el
-            .find('.min').text(@_settings.min).end()
-            .find('.max').text(@_settings.max)
-
-    _initSelectors:->
-        @_cache.document = $(document)
-        @_cache.slider   = @_settings.el
-        @_cache.bar      = @_settings.el.find('.bar') if @_settings.bar
-        @_cache.handle   = @_settings.el.find('.handle')
-        @_cache.current  = @_settings.el.find('.current') if @_settings.labels
-        @_sliderAttr = {'width' : @_cache.slider.outerWidth()}
-
-    _initEvents:->
-        @_cache.handle.on('keydown', @_onHandleKeydown)
-        @_cache.handle.on('mousedown', @_onHandleMousedown)
-        @_cache.slider.on('click', @_onSliderClick)
-        @_cache.document.on('mouseup', @_onMouseup)
-
-    _changeHandle: (dir)->
-        @_settings.value = @_settings.value + (if dir is 'r' then @_settings.step else -@_settings.step)
-        @_validateHandles()
-        @_renderHandleChanges()
-        @_fireOnChange()
+        @_settings.el.getElementsByClassName('min')[0].innerHTML = @_settings.min
+        @_settings.el.getElementsByClassName('max')[0].innerHTML = @_settings.max
 
     _renderHandleChanges: ->
-        @_cache.handle.css('left', @_settings.value + '%')
-        @_cache.bar.css('width' : @_settings.value + '%') if @_settings.bar
-        @_cache.current.text(@_settings.value) if @_settings.labels
+        h.style.left = "#{@_settings.value}%" for h in @_cache.handle
+        @_cache.bar.style.width  = "#{@_settings.value}%" if @_settings.bar
+        @_cache.current.innerHTML = @_settings.value if @_settings.labels
 
-    _onHandleKeydown: (e)=>
+    _onHandleKeydown: (e) =>
         @_changeHandle(if e.keyCode in [37, 40, 65, 83] then 'l' else 'r') if e.keyCode in [37, 38, 39, 40, 65, 68, 83, 87]
 
-    _onHandleMousedown: (e)=>
+    _onHandleMousedown: (e) =>
         @_activeDrag = true
-        @_cache.document.on('mousemove', @_onHandleMousemove)
+        document.addEventListener('mousemove', @_onHandleMousemove)
         false
 
-    _onHandleMousemove: (e)=>
+    _onHandleMousemove: (e) =>
         @_setSliderValueOnDrag(e) if @_activeDrag
-        
-    _onSliderClick: (e)=>
+
+    _onSliderClick: (e) =>
         @_settings.value = @_getValFromMouseEvent(e)
         @_validateHandles()
         @_renderHandleChanges()
         @_fireOnChange()
-        @_cache.handle.focus()
+        @_cache.handle[0].focus()
         false
 
-    _onMouseup: (e)=>
+    _onMouseup: (e) =>
         if @_activeDrag
             @_setSliderValueOnDrag(e)
             @_fireOnChange()
-            @_cache.handle.focus()
+            @_cache.handle[0].focus()
         @_activeDrag = false
         @
 
     _fireOnChange:->
         @_settings.onChange(@_settings.value) if @_settings.onChange?
 
-    _getValFromMouseEvent: (e)=>
-        @_validateValue(((e.pageX - @_cache.slider.offset().left) / @_sliderAttr.width) * 100)
+    _getValFromMouseEvent: (e) =>
+        @_validateValue(((e.pageX - @_cache.slider.offsetLeft) / @_cache.width) * 100)
 
-    _setSliderValueOnDrag: (e)->
+    _setSliderValueOnDrag: (e) ->
         @_settings.value = @_getValFromMouseEvent(e)
         @_validateHandles()
         @_settings.onDrag(@_settings.value) if @_settings.onDrag?
@@ -116,7 +124,7 @@ class SliderBarr
 
     getValue: -> @_settings.value
 
-    setValue: (value, fireEvents = true) ->
+    setValue: (value, fireEvents=true) ->
         @_settings.value = value
         @_validateHandles()
         @_renderHandleChanges()
