@@ -1,7 +1,7 @@
 (function () {
 
     new SliderBarr({
-        el    : $('#slider'),
+        el    : 'slider',
         value : 15,
         step  : 1
     });
@@ -20,7 +20,7 @@
     });
 
     new SliderBarr({
-        el     : $('#sliderFour'),
+        el     : 'sliderFour',
         value  : 50,
         step   : 0.1,
         labels : true
