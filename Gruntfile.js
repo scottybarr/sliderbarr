@@ -5,8 +5,7 @@ module.exports = function(grunt) {
         coffee: {
             compile: {
                 files: {
-                    'dist/sliderbarr.js': 'src/coffee/sliderbarr.coffee',
-                    'test/spec/sliderbarr.spec.coffee.js': 'test/spec/sliderbarr.spec.coffee'
+                    'dist/sliderbarr.js': 'src/coffee/sliderbarr.coffee'
                 }
             }
         },
