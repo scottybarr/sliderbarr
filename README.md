@@ -10,7 +10,7 @@ A simple and lightweight JavaScript slider component that **does NOT depend on j
 ## Getting Started
 SliderBarr is written in CoffeeScript, styled using SASS and uses qunit for unit tests.
 
-It is AMD-compatible and has a single dependency on [jQuery](http://jquery.com/).
+It is also AMD-compatible.
 
 ## How to use it
 Once you have downloaded and extracted the component you should use the contents of the **dist** directory in the following manner:
@@ -24,11 +24,10 @@ In your web page:
 <body>
 <div id="slider" class="sliderbarr"></div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="dist/sliderbarr.min.js"></script>
 <script>
 var slider = new SliderBarr({
-    el: $('#slider'),
+    el: 'slider',
     value: 50,
     step: 1
 });
@@ -46,7 +45,6 @@ var slider = new SliderBarr({
 * Range slider
 * Vertical slider option
 * Support for touchscreen devices.
-* Remove jQuery dependency.
 
 ## Building
 
