@@ -8,7 +8,7 @@ A simple and lightweight JavaScript slider component that **does NOT depend on j
 [Unit Tests](http://scottybarr.github.io/sliderbarr/test/SpecRunner.html)
 
 ## Getting Started
-SliderBarr is written in CoffeeScript, styled using SASS and uses qunit for unit tests.
+SliderBarr is written in CoffeeScript, styled using SASS and uses Jasmine for unit tests.
 
 It is also AMD-compatible.
 
